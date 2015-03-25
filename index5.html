@@ -55,11 +55,11 @@
          var plotManager = new org.bodytrack.grapher.PlotManager("date_axis", minTimeSecs, maxTimeSecs);
 
          plotManager.setWillAutoResizeWidth(true, function() {
-            return $(window).width()               // window width
-                   - $(".y_axis").width()          // Y axis width
-                   - 20                            // left and right margins
-                   - $("#y_axis_label").height()   // Y axis label
-                   - 3;                            // grapher and Y axis borders
+            return $(window).width()                                                      // window width
+                   - $(".y_axis").width()                                                 // Y axis width
+                   - 20                                                                   // left and right margins
+                   - Math.max($("#y_axis_label1").height(), $("#y_axis_label2").height()) // the max height of the Y axis labels
+                   - 3;                                                                   // grapher and Y axis borders
          });
 
          var createDatasource = function(feedIdOrApiKey, channelName) {
@@ -85,45 +85,8 @@
             };
          };
 
-         var style = {
-            "styles" : [
-               { "type" : "line", "lineWidth" : 1, "show" : true, "color" : "red" },
-               { "type" : "circle", radius : 3, "lineWidth" : 1, "show" : true, "color" : "blue", fill : false }
-            ],
-            "highlight" : {
-               "lineWidth" : 1,
-               "styles" : [
-                  {
-                     "show" : true,
-                     "type" : "lollipop",
-                     "color" : "green",
-                     "radius" : 0,
-                     "lineWidth" : 1,
-                     "fill" : false
-                  },
-                  {
-                     "type" : "circle",
-                     radius : 3,
-                     "lineWidth" : 0.5,
-                     "show" : true,
-                     "color" : "#ff0000",
-                     fill : true
-                  },
-                  {
-                     "show" : true,
-                     "type" : "value",
-                     "fillColor" : "#000000",
-                     "marginWidth" : 10,
-                     "font" : "9pt Helvetica,Arial,Verdana,sans-serif",
-                     "verticalOffset" : 7,
-                     "numberFormat" : "###,##0.#"
-                  }
-               ]
-            }
-         };
-
-         plotManager.addDataSeriesPlot("plot1", createDatasource(3506, "PM2_5"), "plot_container", "y_axis", 0, 40, style);
-         plotManager.addDataSeriesPlot("plot2", createDatasource(4231, "PM2_5"), "plot_container", "y_axis");
+         plotManager.addDataSeriesPlot("plot1", createDatasource(3506, "PM2_5"), "plot_container1", "y_axis1", 0, 20);
+         plotManager.addDataSeriesPlot("plot2", createDatasource(3506, "OZONE"), "plot_container2", "y_axis2", 0, 50);
 
          var positionLabels = function() {
             // define a function for positioning a label next to its axis
@@ -142,7 +105,8 @@
                yAxisLabelElement.css("top", yAxisLabelTop + "px").css("left", yAxisLabelLeft + "px");
             };
 
-            positionLabel('y_axis_label', 'y_axis');
+            positionLabel('y_axis_label1', 'y_axis1');
+            positionLabel('y_axis_label2', 'y_axis2');
          };
 
          // add a resize handler to position
@@ -155,7 +119,7 @@
 </head>
 <body>
 <p>
-   Two auto-resizing plots in the same plot container, sharing a Y axis. One plot plot has a custom style.
+   Two auto-resizing plots in separate plot containers, with Y axis labels.
 </p>
 <div id="grapher_container" class="noselect">
    <table id="grapher" border="0" cellpadding="0" cellspacing="0">
@@ -167,11 +131,21 @@
       </tr>
       <tr>
          <td>
-            <div id="plot_container" class="plot_container" style="width:400px;height:300px;"></div>
+            <div id="plot_container1" class="plot_container" style="width:400px;height:300px;"></div>
          </td>
          <td>
-            <div id="y_axis" class="y_axis" style="height:300px">
-               <div id="y_axis_label" class="rotate_90 y_axis_label">PM 2.5</div>
+            <div id="y_axis1" class="y_axis" style="height:300px">
+               <div id="y_axis_label1" class="rotate_90 y_axis_label">PM 2.5</div>
+            </div>
+         </td>
+      </tr>
+      <tr>
+         <td>
+            <div id="plot_container2" class="plot_container" style="width:400px;height:300px;border-top:0"></div>
+         </td>
+         <td>
+            <div id="y_axis2" class="y_axis" style="height:300px;border-top:0">
+               <div id="y_axis_label2" class="rotate_90 y_axis_label">Ozone</div>
             </div>
          </td>
       </tr>

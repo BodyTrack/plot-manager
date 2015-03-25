@@ -77,31 +77,17 @@
 
          plotManager.addDataSeriesPlot("my_plot", datasource, "plot_container", "y_axis", minValue, maxValue);
 
-         // configure checkboxes (and call click() on them to enable constraints)
-         $("#is_date_axis_range_constrained").click(function() {
-            if ($("#is_date_axis_range_constrained").prop("checked")) {
-               plotManager.getDateAxis().constrainRangeTo(minTimeSecs, maxTimeSecs);
-            }
-            else {
-               plotManager.getDateAxis().clearRangeConstraints();
-            }
-         }).click();
-
-         $("#is_y_axis_range_constrained").click(function() {
-            if ($("#is_y_axis_range_constrained").prop("checked")) {
-               plotManager.getYAxis("y_axis").constrainRangeTo(minValue, maxValue);
-            }
-            else {
-               plotManager.getYAxis("y_axis").clearRangeConstraints();
-            }
-         }).click();
+         // configure checkbox
+         $("#will_auto_resize").click(function() {
+            plotManager.setWillAutoResizeWidth($("#will_auto_resize").prop("checked"));
+         });
       };
    </script>
 </head>
 <body>
 <p>
-   An auto-resizing plot which also constrains the ranges for the date axis and the Y axis. You can control
-   whether the ranges are constrained by toggling the checkboxes.
+   An auto-resizing plot which also specifies initial visible ranges for the date axis and the Y axis. You can control
+   whether auto-resizing is enabled by toggling the checkbox.
 </p>
 <div id="grapher_container" class="noselect">
    <table id="grapher" border="0" cellpadding="0" cellspacing="0">
@@ -121,7 +107,6 @@
       </tr>
    </table>
 </div>
-<input type="checkbox" id="is_date_axis_range_constrained" value="true"><label for="is_date_axis_range_constrained">Constrain date axis range to the past 7 days</label><br>
-<input type="checkbox" id="is_y_axis_range_constrained" value="true"><label for="is_y_axis_range_constrained">Constrain Y axis range to [0, 20]</label>
+<input type="checkbox" id="will_auto_resize" value="true" checked="checked"><label for="will_auto_resize">Auto-resize</label>
 </body>
 </html>

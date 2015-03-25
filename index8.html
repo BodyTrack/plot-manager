@@ -40,6 +40,21 @@
          -ms-transform: rotate(90deg);
          -webkit-transform: rotate(90deg);
       }
+
+      .channel_link {
+         display: inline-block;
+         margin-top: 5px;
+         margin-right: 20px;
+         color: blue;
+         cursor: pointer;
+      }
+
+      .channel_link.active {
+         font-weight: bold;
+         color: black;
+         cursor: default;
+      }
+
    </style>
    <script src="lib/jquery/jquery-1.11.2.min.js" type="text/javascript"></script>
    <script src="lib/superagent/superagent.js" type="text/javascript"></script>
@@ -47,12 +62,36 @@
    <script src="js/org/bodytrack/grapher/PlotManager.js" type="text/javascript"></script>
    <script type="text/javascript">
       var ESDR_API_ROOT_URL = 'https://esdr.cmucreatelab.org/api/v1';
+      var plotManager;
+
+      var createDatasource = function(feedIdOrApiKey, channelName) {
+         return function(level, offset, successCallback) {
+            superagent
+                  .get(ESDR_API_ROOT_URL + "/feeds/" + feedIdOrApiKey + "/channels/" + channelName + "/tiles/" + level + "." + offset)
+                  .end(function(err, res) {
+                          if (err) {
+                             return console.log("Error: " + res.body);
+                          }
+
+                          switch (res.status) {
+                             case 200:
+                                return successCallback(JSON.stringify(res.body.data));
+                             case 401:
+                                return console.log("Unauthorized");
+                             case 403:
+                                return console.log("Forbidden");
+                             default:
+                                return console.log("Error: " + res.body);
+                          }
+                       });
+         };
+      };
 
       window.grapherLoad = function() {
          var maxTimeSecs = Date.now() / 1000;
          var minTimeSecs = maxTimeSecs - 7 * 24 * 60 * 60;
 
-         var plotManager = new org.bodytrack.grapher.PlotManager("date_axis", minTimeSecs, maxTimeSecs);
+         plotManager = new org.bodytrack.grapher.PlotManager("date_axis", minTimeSecs, maxTimeSecs);
 
          plotManager.setWillAutoResizeWidth(true, function() {
             return $(window).width()               // window width
@@ -62,68 +101,9 @@
                    - 3;                            // grapher and Y axis borders
          });
 
-         var createDatasource = function(feedIdOrApiKey, channelName) {
-            return function(level, offset, successCallback) {
-               superagent
-                     .get(ESDR_API_ROOT_URL + "/feeds/" + feedIdOrApiKey + "/channels/" + channelName + "/tiles/" + level + "." + offset)
-                     .end(function(err, res) {
-                             if (err) {
-                                return console.log("Error: " + res.body);
-                             }
 
-                             switch (res.status) {
-                                case 200:
-                                   return successCallback(JSON.stringify(res.body.data));
-                                case 401:
-                                   return console.log("Unauthorized");
-                                case 403:
-                                   return console.log("Forbidden");
-                                default:
-                                   return console.log("Error: " + res.body);
-                             }
-                          });
-            };
-         };
-
-         var style = {
-            "styles" : [
-               { "type" : "line", "lineWidth" : 1, "show" : true, "color" : "red" },
-               { "type" : "circle", radius : 3, "lineWidth" : 1, "show" : true, "color" : "blue", fill : false }
-            ],
-            "highlight" : {
-               "lineWidth" : 1,
-               "styles" : [
-                  {
-                     "show" : true,
-                     "type" : "lollipop",
-                     "color" : "green",
-                     "radius" : 0,
-                     "lineWidth" : 1,
-                     "fill" : false
-                  },
-                  {
-                     "type" : "circle",
-                     radius : 3,
-                     "lineWidth" : 0.5,
-                     "show" : true,
-                     "color" : "#ff0000",
-                     fill : true
-                  },
-                  {
-                     "show" : true,
-                     "type" : "value",
-                     "fillColor" : "#000000",
-                     "marginWidth" : 10,
-                     "font" : "9pt Helvetica,Arial,Verdana,sans-serif",
-                     "verticalOffset" : 7,
-                     "numberFormat" : "###,##0.#"
-                  }
-               ]
-            }
-         };
-
-         plotManager.addDataSeriesPlot("plot1", createDatasource(3506, "PM2_5"), "plot_container", "y_axis", 0, 40, style);
-         plotManager.addDataSeriesPlot("plot2", createDatasource(4231, "PM2_5"), "plot_container", "y_axis");
+         // Default to adding the PM 2.5 channel
+         plotManager.addDataSeriesPlot("plot", createDatasource(3506, "PM2_5"), "plot_container", "y_axis", 0, 30);
 
          var positionLabels = function() {
             // define a function for positioning a label next to its axis
@@ -150,12 +130,36 @@
 
          // set the initial position of the labels
          positionLabels();
+
+         // configure the channel links
+         var createChannelLinkClickHandler = function(channelName, yMin, yMax) {
+            return function() {
+               var linkElement = $(this);
+               if (!linkElement.hasClass("active")) {
+                  // make this channel appear active
+                  $(".channel_link").removeClass("active");
+                  linkElement.addClass("active");
+
+                  // remove the current plot from the PlotManager
+                  plotManager.getPlotContainer('plot_container').removePlot('plot');
+
+                  // add the new plot
+                  plotManager.addDataSeriesPlot("plot", createDatasource(3506, channelName), "plot_container", "y_axis", yMin, yMax);
+
+                  // set the label text
+                  $("#y_axis_label").text($(this).text());
+               }
+            };
+         };
+
+         $("#channel_link_1").click(createChannelLinkClickHandler("PM2_5", 0, 30));
+         $("#channel_link_2").click(createChannelLinkClickHandler("OZONE", 0, 50));
       };
    </script>
 </head>
 <body>
 <p>
-   Two auto-resizing plots in the same plot container, sharing a Y axis. One plot plot has a custom style.
+   Example of how to change the plot in a plot container.  Click the channel name links below the plot to change which channel is displayed.
 </p>
 <div id="grapher_container" class="noselect">
    <table id="grapher" border="0" cellpadding="0" cellspacing="0">
@@ -176,6 +180,10 @@
          </td>
       </tr>
    </table>
+</div>
+<div id="channels">
+   <div id="channel_link_1" class="channel_link active">PM 2.5</div>
+   <div id="channel_link_2" class="channel_link">Ozone</div>
 </div>
 </body>
 </html>

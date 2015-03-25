@@ -44,7 +44,7 @@
 
          var plotManager = new org.bodytrack.grapher.PlotManager("date_axis", minTimeSecs, maxTimeSecs);
 
-         plotManager.setWillAutoResizeWidth(true, function() {
+         plotManager.setWidthCalculator(function() {
             return $(window).width()         // window width
                    - $(".y_axis").width()    // Y axis width
                    - 20                      // left and right margins
@@ -77,17 +77,16 @@
 
          plotManager.addDataSeriesPlot("my_plot", datasource, "plot_container", "y_axis", minValue, maxValue);
 
-         // configure checkbox
-         $("#will_auto_resize").click(function() {
-            plotManager.setWillAutoResizeWidth($("#will_auto_resize").prop("checked"));
+         // configure width selection radio buttons to change the PlotManager's width
+         $(".plot_width_selector").click(function() {
+            plotManager.setWidth($(this).val());
          });
       };
    </script>
 </head>
 <body>
 <p>
-   An auto-resizing plot which also specifies initial visible ranges for the date axis and the Y axis. You can control
-   whether auto-resizing is enabled by toggling the checkbox.
+   An resizeable plot. You can control the width of the plot with the radio buttons.
 </p>
 <div id="grapher_container" class="noselect">
    <table id="grapher" border="0" cellpadding="0" cellspacing="0">
@@ -107,6 +106,20 @@
       </tr>
    </table>
 </div>
-<input type="checkbox" id="will_auto_resize" value="true" checked="checked"><label for="will_auto_resize">Auto-resize</label>
+<div style="margin-top: 5px;">
+   Width:<br>
+   <label>
+      <input type="radio" class="plot_width_selector" name="plot_width" value="200"/>200 pixels<br>
+   </label>
+   <label>
+      <input type="radio" class="plot_width_selector" name="plot_width" value="400" checked="checked"/>400 pixels<br>
+   </label>
+   <label>
+      <input type="radio" class="plot_width_selector" name="plot_width" value="600"/>600 pixels<br>
+   </label>
+   <label>
+      <input type="radio" class="plot_width_selector" name="plot_width" value="800"/>800 pixels
+   </label>
+</div>
 </body>
 </html>
