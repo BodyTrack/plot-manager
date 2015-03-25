@@ -412,7 +412,7 @@
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="ProjectTasksOptions">
-    <TaskOptions isEnabled="true">
+    <TaskOptions isEnabled="false">
       <option name="arguments" value="$ProjectFileDir$/js -r -d docs" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" value="Generates JSDoc" />
