@@ -377,8 +377,8 @@ if (!window['$']) {
       };
 
       /**
-       * Datasource function with signature function(level, offset, successCallback) resposible for returning tile JSON
-       * for the given level and offset.
+       * Datasource function with signature <code>function(level, offset, successCallback)</code> resposible for
+       * returning tile JSON for the given <code>level</code> and <code>offset</code>.
        *
        * @callback datasourceFunction
        * @param {number} level - the tile's level
@@ -392,7 +392,7 @@ if (!window['$']) {
        * shared with other plots, if you wish).
        *
        * @param {string|number} plotId - A identifier for this plot, unique within the PlotManager.  Must be a number or a string
-       * @param {datasourceFunction} datasource - function with signature function(level, offset, successCallback) resposible for returning tile JSON for the given level and offset
+       * @param {datasourceFunction} datasource - function with signature <code>function(level, offset, successCallback)</code> resposible for returning tile JSON for the given <code>level</code> and <code>offset</code>
        * @param {string} plotContainerElementId - the DOM element ID for the container div into which this plot should be added
        * @param {string} yAxisElementId - the DOM element ID for the container div holding this plot's Y axis
        * @param {number} [minValue=0] - the minimum initial value for the Y axis (if the Y axis is created for this plot). Defaults to 0 if undefined, <code>null</code>, or non-numeric.
@@ -495,8 +495,8 @@ if (!window['$']) {
       };
 
       /**
-       * Helper function which calculates the desired width of the date axis (and, as a result, all plot containers
-       * managed by this PlotManager).
+       * Helper function which calculates and returns the desired width of the date axis (and, as a result, all plot
+       * containers managed by this PlotManager).
        *
        * @callback dateAxisWidthCalculator
        * @returns {int} the desired width of the date axis
@@ -511,7 +511,7 @@ if (!window['$']) {
        *
        * @param {boolean} willAutoResizeWidth - whether the PlotManager should auto resize the width of the date axis
        * and all plot containers upon resize of the browser window.
-       * @param {dateAxisWidthCalculator} [dateAxisWidthCalculator] - function which calculates the desired width of the date axis
+       * @param {dateAxisWidthCalculator} [dateAxisWidthCalculator] - function which calculates and returns the desired width of the date axis
        */
       this.setWillAutoResizeWidth = function(willAutoResizeWidth, dateAxisWidthCalculator) {
          isAutoResizeWidth = willAutoResizeWidth;
