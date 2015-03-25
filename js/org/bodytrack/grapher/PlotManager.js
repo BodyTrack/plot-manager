@@ -347,7 +347,7 @@ if (!window['$']) {
       var dateAxis = null;
 
       var plotContainers = {};
-      var _yAxes = {};
+      var yAxes = {};
       var plotsAndYAxes = {};
 
       var isAutoResizeWidth = false;
@@ -370,8 +370,8 @@ if (!window['$']) {
        * @return {org.bodytrack.grapher.YAxis}
        */
       this.getYAxis = function(yAxisElementId) {
-         if (yAxisElementId in _yAxes) {
-            return _yAxes[yAxisElementId];
+         if (yAxisElementId in yAxes) {
+            return yAxes[yAxisElementId];
          }
          return null;
       };
@@ -460,15 +460,15 @@ if (!window['$']) {
 
          // create the Y axis, if necessary
          var yAxis = null;
-         if (yAxisElementId in _yAxes) {
-            yAxis = _yAxes[yAxisElementId];
+         if (yAxisElementId in yAxes) {
+            yAxis = yAxes[yAxisElementId];
          }
          else {
             yAxis = new org.bodytrack.grapher.YAxis(yAxisElementId,    // DOM element ID
                                                     minValue,          // initial min value for the y axis
                                                     maxValue);         // initial max value for the y axis
 
-            _yAxes[yAxisElementId] = yAxis;
+            yAxes[yAxisElementId] = yAxis;
          }
 
          // create the plot
@@ -495,8 +495,8 @@ if (!window['$']) {
       };
 
       /**
-       * Helper function which calculates the desired width of the date axis (and, accordingly, all plot containers
-       * associated with the date axis and managed by this PlotManager).
+       * Helper function which calculates the desired width of the date axis (and, as a result, all plot containers
+       * managed by this PlotManager).
        *
        * @callback dateAxisWidthCalculator
        * @returns {int} the desired width of the date axis
@@ -526,7 +526,7 @@ if (!window['$']) {
       };
 
       /**
-       * Returns whether auto-resizing is enabled.
+       * Returns whether auto-resizing of the width is enabled.
        *
        * @return {boolean} - whether auto-resizing is enabled
        */
