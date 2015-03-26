@@ -122,6 +122,14 @@ if (!window['$']) {
    };
 
    /**
+    * The min and max values for an axis's range.
+    *
+    * @typedef {Object} AxisRange
+    * @property {number} min - the range min
+    * @property {number} max - the range max
+    */
+
+   /**
     * Wrapper class to make it easier to work with a date axis.
     *
     * @class
@@ -149,6 +157,18 @@ if (!window['$']) {
        */
       this.getWrappedAxis = function() {
          return wrappedAxis;
+      };
+
+      /**
+       * Returns the date axis's current range as and object containing <code>mine</code> and <code>max</code> fields.
+       *
+       * @return {AxisRange}
+       */
+      this.getRange = function(){
+         return {
+            min: wrappedAxis.getMin(),
+            max: wrappedAxis.getMax()
+         };
       };
 
       /**
@@ -249,6 +269,18 @@ if (!window['$']) {
        */
       this.getWrappedAxis = function() {
          return wrappedAxis
+      };
+
+      /**
+       * Returns the Y axis's current range as and object containing <code>mine</code> and <code>max</code> fields.
+       *
+       * @return {AxisRange}
+       */
+      this.getRange = function(){
+         return {
+            min: wrappedAxis.getMin(),
+            max: wrappedAxis.getMax()
+         };
       };
 
       /**
