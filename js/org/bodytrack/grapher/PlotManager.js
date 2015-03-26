@@ -172,6 +172,33 @@ if (!window['$']) {
       };
 
       /**
+       * Returns the current cursor position.
+       *
+       * @return {number}
+       */
+      this.getCursorPosition = function() {
+         return wrappedAxis.getCursorPosition();
+      };
+
+      /**
+       * Sets the cursor position to the given <code>timeInSecs</code>.  The cursor is hidden if <code>timeInSecs</code>
+       * is <code>null</code> or undefined.
+       *
+       * @param {number} timeInSecs - the time at which the cursor should be placed.
+       */
+      this.setCursorPosition = function(timeInSecs) {
+         wrappedAxis.setCursorPosition(timeInSecs);
+      };
+
+      /**
+       * Hides the cursor. This is merely a helper method, identical to calling
+       * <code>{@link #setCursorPosition setCursorPosition(null)}</code>.
+       */
+      this.hideCursor = function() {
+         wrappedAxis.setCursorPosition(null);
+      };
+
+      /**
        * Sets the visible range of the axis.
        *
        * @param {number} minTimeSecs - a double representing the time in Unix time seconds of the start of the
