@@ -3,6 +3,11 @@ Plot Manager
 
 A JavaScript wrapper library for the BodyTrack Grapher.
 
+Examples
+========
+
+The [Examples](http://bodytrack.github.io/plot-manager/) illustrate a number of common usage scenarios.
+
 Documentation
 =============
 
