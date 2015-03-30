@@ -63,42 +63,6 @@ if (!window['$']) {
 // CODE
 //======================================================================================================================
 (function() {
-   var DEFAULT_STYLE = {
-      "styles" : [
-         { "type" : "line", "lineWidth" : 1, "show" : true, "color" : "black" },
-         { "type" : "circle", radius : 1, "lineWidth" : 1, "show" : true, "color" : "black", fill : true }
-      ],
-      "highlight" : {
-         "lineWidth" : 1,
-         "styles" : [
-            {
-               "show" : true,
-               "type" : "lollipop",
-               "color" : "#000000",
-               "radius" : 0,
-               "lineWidth" : 1,
-               "fill" : false
-            },
-            {
-               "type" : "circle",
-               radius : 3,
-               "lineWidth" : 0.5,
-               "show" : true,
-               "color" : "#ff0000",
-               fill : false
-            },
-            {
-               "show" : true,
-               "type" : "value",
-               "fillColor" : "#ff0000",
-               "marginWidth" : 10,
-               "font" : "7pt Helvetica,Arial,Verdana,sans-serif",
-               "verticalOffset" : 7,
-               "numberFormat" : "###,##0.#"
-            }
-         ]
-      }
-   };
 
    //  Got this from http://stackoverflow.com/a/9436948/703200
    var isString = function(o) {
@@ -164,10 +128,10 @@ if (!window['$']) {
        *
        * @return {AxisRange}
        */
-      this.getRange = function(){
+      this.getRange = function() {
          return {
-            min: wrappedAxis.getMin(),
-            max: wrappedAxis.getMax()
+            min : wrappedAxis.getMin(),
+            max : wrappedAxis.getMax()
          };
       };
 
@@ -196,6 +160,18 @@ if (!window['$']) {
        */
       this.hideCursor = function() {
          wrappedAxis.setCursorPosition(null);
+      };
+
+      /**
+       * Sets the cursor to the color described by the given <code>colorDescriptor</code>, or to black if the given
+       * <code>colorDescriptor</code> is undefined, <code>null</code>, or invalid. The color descriptor can be any valid
+       * CSS color descriptor such as a word ("green", "blue", etc.), a hex color (e.g. "#ff0000"), or an RGB color
+       * (e.g. "rgb(255,0,0)" or "rgba(0,255,0,0.5)").
+       *
+       * @param {string} colorDescriptor - a string description of the desired color.
+       */
+      this.setCursorColor = function(colorDescriptor) {
+         wrappedAxis.setCursorColor(colorDescriptor);
       };
 
       /**
@@ -303,10 +279,10 @@ if (!window['$']) {
        *
        * @return {AxisRange}
        */
-      this.getRange = function(){
+      this.getRange = function() {
          return {
-            min: wrappedAxis.getMin(),
-            max: wrappedAxis.getMax()
+            min : wrappedAxis.getMin(),
+            max : wrappedAxis.getMax()
          };
       };
 
@@ -401,12 +377,107 @@ if (!window['$']) {
    };
 
    /**
+    * Wrapper class to make it easier to work with a DataSeriesPlot.
+    *
+    * @class
+    * @constructor
+    * @param {datasourceFunction} datasource - function with signature <code>function(level, offset, successCallback)</code> resposible for returning tile JSON for the given <code>level</code> and <code>offset</code>
+    * @param {org.bodytrack.grapher.DateAxis} dateAxis - the date axis
+    * @param {org.bodytrack.grapher.YAxis} yAxis - the Y axis
+    * @param {Object} [style] - the style object. A default style is used if undefined, null, or not an object.
+    * @param {boolean} [isLocalTime=false] - whether the plot's data uses local time. Defaults to false (UTC).
+    */
+   org.bodytrack.grapher.DataSeriesPlot = function(datasource, dateAxis, yAxis, style, isLocalTime) {
+      var DEFAULT_STYLE = {
+         "styles" : [
+            { "type" : "line", "lineWidth" : 1, "show" : true, "color" : "black" },
+            { "type" : "circle", radius : 1, "lineWidth" : 1, "show" : true, "color" : "black", fill : true }
+         ],
+         "highlight" : {
+            "lineWidth" : 1,
+            "styles" : [
+               {
+                  "show" : true,
+                  "type" : "lollipop",
+                  "color" : "#000000",
+                  "radius" : 0,
+                  "lineWidth" : 1,
+                  "fill" : false
+               },
+               {
+                  "type" : "circle",
+                  radius : 3,
+                  "lineWidth" : 0.5,
+                  "show" : true,
+                  "color" : "#ff0000",
+                  fill : false
+               },
+               {
+                  "show" : true,
+                  "type" : "value",
+                  "fillColor" : "#ff0000",
+                  "marginWidth" : 10,
+                  "font" : "7pt Helvetica,Arial,Verdana,sans-serif",
+                  "verticalOffset" : 7,
+                  "numberFormat" : "###,##0.#"
+               }
+            ]
+         }
+      };
+
+      var wrappedPlot = null;
+
+      /**
+       * Returns the wrapped <code>DataSeriesPlot</code> object.
+       *
+       * @return {DataSeriesPlot}
+       */
+      this.getWrappedPlot = function() {
+         return wrappedPlot;
+      };
+
+      /**
+       * Sets the plot's cursor to the color described by the given <code>colorDescriptor</code>, or to black if the
+       * given <code>colorDescriptor</code> is undefined, <code>null</code>, or invalid. The color descriptor can be any
+       * valid CSS color descriptor such as a word ("green", "blue", etc.), a hex color (e.g. "#ff0000"), or an RGB
+       * color (e.g. "rgb(255,0,0)" or "rgba(0,255,0,0.5)").
+       *
+       * @param {string} colorDescriptor - a string description of the desired color.
+       */
+      this.setCursorColor = function(colorDescriptor) {
+         var theStyle = wrappedPlot.getStyle();
+
+         if (!("cursor" in theStyle)) {
+            theStyle["cursor"] = {color: null};
+         }
+         theStyle["cursor"]['color'] = colorDescriptor;
+
+         wrappedPlot.setStyle(theStyle);
+      };
+
+      // the "constructor"
+      (function() {
+         if (typeof style !== 'object' || style == null) {
+            style = JSON.parse(JSON.stringify(DEFAULT_STYLE));
+         }
+
+         wrappedPlot = new DataSeriesPlot(datasource,
+                                          dateAxis.getWrappedAxis(),
+                                          yAxis.getWrappedAxis(),
+               {
+                  "style" : style,
+                  "localDisplay" : !!isLocalTime
+               });
+      })();
+   };
+
+   /**
     * Wrapper class to make it easier to work with a plot container.
     *
     * @class
     * @constructor
     * @param {string} elementId - the DOM element ID for the container div holding this plot container
-    * @param {org.bodytrack.grapher.DateAxis} dateAxis
+    * @param {org.bodytrack.grapher.DateAxis} dateAxis - the date axis
     */
    org.bodytrack.grapher.PlotContainer = function(elementId, dateAxis) {
       var self = this;
@@ -480,12 +551,6 @@ if (!window['$']) {
             throw new Error("The maxValue must be a number.")
          }
 
-         if (typeof style !== 'object' || style == null) {
-            style = JSON.parse(JSON.stringify(DEFAULT_STYLE));
-         }
-
-         isLocalTime = !!isLocalTime;
-
          // create the Y axis, if necessary
          var yAxis = null;
          if (yAxisElementId in yAxesAndPlotCount) {
@@ -506,13 +571,7 @@ if (!window['$']) {
          }
 
          // create the plot
-         var plot = new DataSeriesPlot(datasource,
-                                       dateAxis.getWrappedAxis(),
-                                       yAxis.getWrappedAxis(),
-               {
-                  "style" : style,
-                  "localDisplay" : isLocalTime
-               });
+         var plot = new org.bodytrack.grapher.DataSeriesPlot(datasource, dateAxis, yAxis, style, isLocalTime);
 
          plotsAndYAxes[plotId] = {
             plot : plot,
@@ -520,12 +579,17 @@ if (!window['$']) {
          };
 
          // finally, add the plot to the plot container
-         wrappedPlotContainer.addPlot(plot);
+         wrappedPlotContainer.addPlot(plot.getWrappedPlot());
       };
 
+      /**
+       * Removed the plot with the given <code>plotId</code> from this PlotContainer.
+       *
+       * @param {string|number} plotId - A identifier for the plot to remove, unique within the PlotContainer.  Must be a number or a string.
+       */
       this.removePlot = function(plotId) {
          if (plotId in plotsAndYAxes) {
-            var plot = plotsAndYAxes[plotId].plot;
+            var plot = plotsAndYAxes[plotId].plot.getWrappedPlot();
             var yAxisElementId = plotsAndYAxes[plotId].yAxisElementId;
 
             // remove the plot from the PlotContainer
@@ -548,8 +612,28 @@ if (!window['$']) {
          }
       };
 
+      /**
+       * Removes all plots from this PlotContainer.
+       */
       this.removeAllPlots = function() {
-         // TODO
+         Object.keys(plotsAndYAxes).forEach(function(plotId) {
+            self.removePlot(plotId);
+         });
+      };
+
+      /**
+       * Sets the cursor for each contained plot to the color described by the given <code>colorDescriptor</code>, or to
+       * black if the given <code>colorDescriptor</code> is undefined, <code>null</code>, or invalid. The color
+       * descriptor can be any valid CSS color descriptor such as a word ("green", "blue", etc.), a hex color
+       * (e.g. "#ff0000"), or an RGB color (e.g. "rgb(255,0,0)" or "rgba(0,255,0,0.5)").
+       *
+       * @param {string} colorDescriptor - a string description of the desired color.
+       */
+      this.setCursorColor = function(colorDescriptor) {
+         // iterate over every plot and set the cursor color in each
+         Object.keys(plotsAndYAxes).forEach(function(plotId) {
+            plotsAndYAxes[plotId].plot.setCursorColor(colorDescriptor);
+         });
       };
 
       /**
@@ -624,6 +708,24 @@ if (!window['$']) {
          }
 
          return null;
+      };
+
+      /**
+       * Sets the cursor to the color described by the given <code>colorDescriptor</code>, or to black if the given
+       * <code>colorDescriptor</code> is undefined, <code>null</code>, or invalid. The color descriptor can be any valid
+       * CSS color descriptor such as a word ("green", "blue", etc.), a hex color (e.g. "#ff0000"), or an RGB color
+       * (e.g. "rgb(255,0,0)" or "rgba(0,255,0,0.5)").
+       *
+       * @param {string} colorDescriptor - a string description of the desired color.
+       */
+      this.setCursorColor = function(colorDescriptor) {
+         // first set the cursor color in the date axis
+         dateAxis.setCursorColor(colorDescriptor);
+
+         // now iterate over every plot container and set the cursor color in each
+         Object.keys(plotContainers).forEach(function(plotContainerId) {
+            plotContainers[plotContainerId].setCursorColor(colorDescriptor);
+         });
       };
 
       /**
