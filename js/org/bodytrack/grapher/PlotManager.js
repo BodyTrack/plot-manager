@@ -94,6 +94,24 @@ if (!window['$']) {
     */
 
    /**
+    * An axis change event object.
+    *
+    * @typedef {Object} AxisChangeEvent
+    * @property {number} min - the axis's min value
+    * @property {number} max - the axis's max value
+    * @property {number|null} cursorPosition - the value of the cursor
+    * @property {string|null} cursorPositionString - the value of the cursor, expressed as a string
+    */
+
+   /**
+    * Function for handling axis change events.  Note that the event object passed to the function may be
+    * <code>null</code>.
+    *
+    * @callback axisChangeListenerFunction
+    * @param {AxisChangeEvent|null} axisChangeEvent - the <code>{@link AxisChangeEvent}</code>
+    */
+
+   /**
     * Wrapper class to make it easier to work with a date axis.
     *
     * @class
@@ -121,6 +139,29 @@ if (!window['$']) {
        */
       this.getWrappedAxis = function() {
          return wrappedAxis;
+      };
+
+      /**
+       * Adds the given function as an axis change listener.  Does nothing if the given <code>listener</code> is not a
+       * function.
+       *
+       * @param {axisChangeListenerFunction} listener - function for handling an <code>{@link AxisChangeEvent}</code>.
+       */
+      this.addAxisChangeListener = function(listener) {
+         if (typeof listener === 'function') {
+            wrappedAxis.addAxisChangeListener(listener);
+         }
+      };
+
+      /**
+       * Removes the given axis change listener.  Does nothing if the given <code>listener</code> is not a function.
+       *
+       * @param {axisChangeListenerFunction} listener - function for handling an <code>{@link AxisChangeEvent}</code>.
+       */
+      this.removeAxisChangeListener = function(listener) {
+         if (typeof listener === 'function') {
+            wrappedAxis.removeAxisChangeListener(listener);
+         }
       };
 
       /**
@@ -272,6 +313,29 @@ if (!window['$']) {
        */
       this.getWrappedAxis = function() {
          return wrappedAxis
+      };
+
+      /**
+       * Adds the given function as an axis change listener.  Does nothing if the given <code>listener</code> is not a
+       * function.
+       *
+       * @param {axisChangeListenerFunction} listener - function for handling an <code>{@link AxisChangeEvent}</code>.
+       */
+      this.addAxisChangeListener = function(listener) {
+         if (typeof listener === 'function') {
+            wrappedAxis.addAxisChangeListener(listener);
+         }
+      };
+
+      /**
+       * Removes the given axis change listener.  Does nothing if the given <code>listener</code> is not a function.
+       *
+       * @param {axisChangeListenerFunction} listener - function for handling an <code>{@link AxisChangeEvent}</code>.
+       */
+      this.removeAxisChangeListener = function(listener) {
+         if (typeof listener === 'function') {
+            wrappedAxis.removeAxisChangeListener(listener);
+         }
       };
 
       /**
@@ -455,6 +519,61 @@ if (!window['$']) {
          wrappedPlot.setStyle(theStyle);
       };
 
+      /**
+       * A data point object.
+       *
+       * @typedef {Object} DataPoint
+       * @property {number} value - the data point's value
+       * @property {number} date - the data point's timestamp
+       * @property {string} valueString - the data point's value, expressed as a string
+       * @property {string} dateString - the data point's timestamp, expressed as a string
+       * @property {string} comment - the comment associated with the data point, or <code>null</code> if no comment exists
+       */
+
+      /**
+       * Function for handling data point events.  Note that the object passed to the function may be <code>null</code>.
+       *
+       * @callback dataPointListenerFunction
+       * @param {DataPoint|null} dataPoint - the DataPoint
+       */
+
+      /**
+       * Adds the given function as a data point listener.  Does nothing if the given <code>listener</code> is not a
+       * function.
+       *
+       * @param {dataPointListenerFunction} listener - function for handling a <code>DataPoint</code> event.
+       */
+      this.addDataPointListener = function(listener){
+         if (typeof listener === 'function') {
+            wrappedPlot.addDataPointListener(listener);
+         }
+      };
+
+      /**
+       * Removes the given data point listener.  Does nothing if the given <code>listener</code> is not a function.
+       *
+       * @param {dataPointListenerFunction} listener - function for handling a <code>DataPoint</code> event.
+       */
+      this.removeDataPointListener = function(listener){
+         if (typeof listener === 'function') {
+            wrappedPlot.removeDataPointListener(listener);
+         }
+      };
+
+      /**
+       * Returns the closest <code>DataPoint</code> in this plot to the given <code>timeInSecs</code>, within the window
+       * of time <code>[timeInSecs - numSecsBefore, timeInSecs + numSecsAfter]</code>.  Returns <code>null</code> if no
+       * point exists in the time window.
+       *
+       * @param timeInSecs - the time, in seconds, around which the window of time to look for the closest point is defined
+       * @param numSecsBefore - when defining the time window in which to look for the closest point, this is the number of seconds before the timeInSecs
+       * @param numSecsAfter - when defining the time window in which to look for the closest point, this is the number of seconds after the timeInSecs
+       * @return {DataPoint|null}
+       */
+      this.getClosestDataPointToTimeWithinWindow = function(timeInSecs, numSecsBefore, numSecsAfter) {
+         return wrappedPlot.getClosestDataPointToTimeWithinWindow(timeInSecs, numSecsBefore, numSecsAfter);
+      };
+
       // the "constructor"
       (function() {
          if (typeof style !== 'object' || style == null) {
@@ -506,6 +625,21 @@ if (!window['$']) {
          if (yAxisElementId in yAxesAndPlotCount) {
             return yAxesAndPlotCount[yAxisElementId].yAxis;
          }
+         return null;
+      };
+
+      /**
+       * Returns the {@link org.bodytrack.grapher.DataSeriesPlot YAxis} with the specified <code>plotId</code>. Returns
+       * <code>null</code> if no such plot exists.
+       *
+       * @param {string|number} plotId - A identifier for the plot, unique within the PlotContainer.  Must be a number or a string.
+       * @return {org.bodytrack.grapher.DataSeriesPlot}
+       */
+      this.getPlot = function(plotId) {
+         if (plotId in plotsAndYAxes) {
+            return plotsAndYAxes[plotId].plot;
+         }
+
          return null;
       };
 
@@ -759,8 +893,7 @@ if (!window['$']) {
       };
 
       /**
-       * Datasource function with signature <code>function(level, offset, successCallback)</code> resposible for
-       * returning tile JSON for the given <code>level</code> and <code>offset</code>.
+       * Function used by a PlotContainer iterator, used for performing an operation on a given PlotContainer.
        *
        * @callback plotContainerIteratorFunction
        * @param {org.bodytrack.grapher.PlotContainer} plotContainer - the PlotContainer object
