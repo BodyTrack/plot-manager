@@ -56,7 +56,6 @@
       var feedIdOrApiKey = 3506;
       var channelName = "PM2_5";
 
-      var plotManager;
       var hoverSampleValueAndTimeElement = null;
       var cursorSampleValueAndTimeElement = null;
 
@@ -64,7 +63,7 @@
          var maxTimeSecs = Date.now() / 1000;
          var minTimeSecs = maxTimeSecs - 7 * 24 * 60 * 60;
 
-         plotManager = new org.bodytrack.grapher.PlotManager("date_axis", minTimeSecs, maxTimeSecs);
+         var plotManager = new org.bodytrack.grapher.PlotManager("date_axis", minTimeSecs, maxTimeSecs);
 
          plotManager.setWillAutoResizeWidth(true, function() {
             return $(window).width()         // window width
