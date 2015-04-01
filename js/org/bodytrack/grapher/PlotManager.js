@@ -534,7 +534,7 @@ if (!window['$']) {
        * Function for handling data point events.  Note that the object passed to the function may be <code>null</code>.
        *
        * @callback dataPointListenerFunction
-       * @param {DataPoint|null} dataPoint - the DataPoint
+       * @param {DataPoint|null} dataPoint - the {@link DataPoint}
        */
 
       /**
@@ -893,10 +893,10 @@ if (!window['$']) {
       };
 
       /**
-       * Function used by a PlotContainer iterator, used for performing an operation on a given PlotContainer.
+       * Function used by a {@link org.bodytrack.grapher.PlotContainer PlotContainer} iterator, used for performing an operation on a given PlotContainer.
        *
        * @callback plotContainerIteratorFunction
-       * @param {org.bodytrack.grapher.PlotContainer} plotContainer - the PlotContainer object
+       * @param {org.bodytrack.grapher.PlotContainer} plotContainer - the {@link org.bodytrack.grapher.PlotContainer PlotContainer} object
        */
 
       /**
@@ -927,7 +927,7 @@ if (!window['$']) {
        * Helper method for adding a plot, shorthand for
        * <code>plotManager.addPlotContainer('plot_container').addDataSeriesPlot(...)</code>.
        *
-       * @param {string|number} plotId - A identifier for this plot, unique within the PlotContainer.  Must be a number or a string.
+       * @param {string|number} plotId - A identifier for this plot, unique within the {@link org.bodytrack.grapher.PlotContainer PlotContainer}.  Must be a number or a string.
        * @param {datasourceFunction} datasource - function with signature <code>function(level, offset, successCallback)</code> resposible for returning tile JSON for the given <code>level</code> and <code>offset</code>
        * @param {string} plotContainerElementId - the DOM element ID for the container div into which this plot should be added
        * @param {string} yAxisElementId - the DOM element ID for the container div holding this plot's Y axis
@@ -950,7 +950,7 @@ if (!window['$']) {
 
       /**
        * Helper function which calculates and returns the desired width of the date axis and all plot containers managed
-       * by this PlotManager.
+       * by this {@link org.bodytrack.grapher.PlotManager PlotManager}.
        *
        * @callback widthCalculatorFunction
        * @returns {int} the desired width of the date axis
