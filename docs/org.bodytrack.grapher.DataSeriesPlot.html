@@ -306,7 +306,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line390">line 390</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line454">line 454</a>
     </li></ul></dd>
     
 
@@ -349,6 +349,323 @@
 
     
         <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="addDataPointListener"><span class="type-signature"></span>addDataPointListener<span class="signature">(listener)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Adds the given function as a data point listener.  Does nothing if the given <code>listener</code> is not a
+function.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>listener</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#dataPointListenerFunction">dataPointListenerFunction</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">function for handling a <code>DataPoint</code> event.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line546">line 546</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getClosestDataPointToTimeWithinWindow"><span class="type-signature"></span>getClosestDataPointToTimeWithinWindow<span class="signature">(timeInSecs, numSecsBefore, numSecsAfter)</span><span class="type-signature"> &rarr; {<a href="global.html#DataPoint">DataPoint</a>|null}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns the closest <code>DataPoint</code> in this plot to the given <code>timeInSecs</code>, within the window
+of time <code>[timeInSecs - numSecsBefore, timeInSecs + numSecsAfter]</code>.  Returns <code>null</code> if no
+point exists in the time window.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>timeInSecs</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the time, in seconds, around which the window of time to look for the closest point is defined</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>numSecsBefore</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">when defining the time window in which to look for the closest point, this is the number of seconds before the timeInSecs</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>numSecsAfter</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">when defining the time window in which to look for the closest point, this is the number of seconds after the timeInSecs</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line573">line 573</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#DataPoint">DataPoint</a></span>
+|
+
+<span class="param-type">null</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
 
         
             
@@ -406,7 +723,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line435">line 435</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line499">line 499</a>
     </li></ul></dd>
     
 
@@ -447,6 +764,137 @@
 </dl>
 
     
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="removeDataPointListener"><span class="type-signature"></span>removeDataPointListener<span class="signature">(listener)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Removes the given data point listener.  Does nothing if the given <code>listener</code> is not a function.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>listener</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#dataPointListenerFunction">dataPointListenerFunction</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">function for handling a <code>DataPoint</code> event.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line557">line 557</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -558,7 +1006,7 @@ color (e.g. "rgb(255,0,0)" or "rgba(0,255,0,0.5)").
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line447">line 447</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line511">line 511</a>
     </li></ul></dd>
     
 
@@ -606,7 +1054,7 @@ color (e.g. "rgb(255,0,0)" or "rgba(0,255,0,0.5)").
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Mon Mar 30 2015 14:50:09 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Wed Apr 01 2015 16:55:11 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
