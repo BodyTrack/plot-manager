@@ -6,7 +6,7 @@ A JavaScript wrapper library for the BodyTrack Grapher.
 Examples
 ========
 
-The [Examples](http://bodytrack.github.io/plot-manager/) illustrate a number of common usage scenarios.  See the [API docs](http://bodytrack.github.io/plot-manager/docs/org.bodytrack.grapher.PlotManager.html) for full details on how to use this library.
+The [Examples](http://bodytrack.github.io/plot-manager/) illustrate a number of common usage scenarios.  Read the source code for the examples and see the [API docs](http://bodytrack.github.io/plot-manager/docs/org.bodytrack.grapher.PlotManager.html) for full details on how to use this library.
 
 Documentation
 =============
