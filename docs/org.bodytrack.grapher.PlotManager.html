@@ -240,7 +240,7 @@ visible time range defaults to the past 24 hours.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line819">line 819</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line863">line 863</a>
     </li></ul></dd>
     
 
@@ -668,7 +668,7 @@ visible time range defaults to the past 24 hours.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line954">line 954</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line1008">line 1008</a>
     </li></ul></dd>
     
 
@@ -807,7 +807,7 @@ PlotContainer has already been added, a new one is not created.  Returns the Plo
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line900">line 900</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line954">line 954</a>
     </li></ul></dd>
     
 
@@ -957,7 +957,7 @@ nothing if the given <code>plotContainerIteratorFunction</code> is not a functio
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line921">line 921</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line975">line 975</a>
     </li></ul></dd>
     
 
@@ -1039,7 +1039,7 @@ nothing if the given <code>plotContainerIteratorFunction</code> is not a functio
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line833">line 833</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line877">line 877</a>
     </li></ul></dd>
     
 
@@ -1092,15 +1092,20 @@ nothing if the given <code>plotContainerIteratorFunction</code> is not a functio
 
     
 
-    <h4 class="name" id="getPlotContainer"><span class="type-signature"></span>getPlotContainer<span class="signature">(plotContainerElementId)</span><span class="type-signature"> &rarr; {<a href="org.bodytrack.grapher.PlotContainer.html">org.bodytrack.grapher.PlotContainer</a>}</span></h4>
+    <h4 class="name" id="getPlot"><span class="type-signature"></span>getPlot<span class="signature">(plotId<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="org.bodytrack.grapher.DataSeriesPlot.html">org.bodytrack.grapher.DataSeriesPlot</a>|null}</span></h4>
 
     
 
 
 
 <div class="description">
-    Returns the <a href="org.bodytrack.grapher.PlotContainer.html">PlotContainer</a> for the specified DOM element ID. Returns
-<code>null</code> if no such plot container exists.
+    Returns the first plot found with the given <code>plotId</code>. Note that since the <code>plotId</code> need
+only be unique within its <a href="org.bodytrack.grapher.PlotContainer.html">PlotContainer</a>, it is possible to have
+more than one plot with the same <code>plotId</code> within a PlotManager.  Thus, this is merely a convenience
+method which iterates over all PlotContainers looking for the specified plot and returns the first one found.
+If no matching plot is found, this method returns null.  If the given <code>plotId</code> is undefined or
+<code>null</code>, this method returns the first plot found in the first PlotContainer found, or
+<code>null</code> if no plots have been added to any PlotContainer.
 </div>
 
 
@@ -1124,6 +1129,8 @@ nothing if the given <code>plotContainerIteratorFunction</code> is not a functio
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -1136,23 +1143,36 @@ nothing if the given <code>plotContainerIteratorFunction</code> is not a functio
 
         <tr>
             
-                <td class="name"><code>plotContainerElementId</code></td>
+                <td class="name"><code>plotId</code></td>
             
 
             <td class="type">
             
                 
 <span class="param-type">string</span>
+|
+
+<span class="param-type">number</span>
 
 
             
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">the DOM element ID for the container div holding the desired plot container</td>
+            <td class="description last">A identifier for the plot, unique within its <a href="org.bodytrack.grapher.PlotContainer.html">PlotContainer</a>.  Must be a number or a string.</td>
         </tr>
 
     
@@ -1193,7 +1213,174 @@ nothing if the given <code>plotContainerIteratorFunction</code> is not a functio
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line885">line 885</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line918">line 918</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="org.bodytrack.grapher.DataSeriesPlot.html">org.bodytrack.grapher.DataSeriesPlot</a></span>
+|
+
+<span class="param-type">null</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getPlotContainer"><span class="type-signature"></span>getPlotContainer<span class="signature">(plotContainerElementId<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="org.bodytrack.grapher.PlotContainer.html">org.bodytrack.grapher.PlotContainer</a>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns the <a href="org.bodytrack.grapher.PlotContainer.html">PlotContainer</a> for the specified DOM element ID. Returns
+<code>null</code> if no such plot container exists. If the given <code>plotContainerElementId</code> is
+undefined or <code>null</code>, this method returns the first PlotContainer found, or <code>null</code> if none
+have been added.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>plotContainerElementId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">the DOM element ID for the container div holding the desired plot container.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line943">line 943</a>
     </li></ul></dd>
     
 
@@ -1242,7 +1429,7 @@ nothing if the given <code>plotContainerIteratorFunction</code> is not a functio
 
     
 
-    <h4 class="name" id="getYAxis"><span class="type-signature"></span>getYAxis<span class="signature">(yAxisElementId)</span><span class="type-signature"> &rarr; {<a href="org.bodytrack.grapher.YAxis.html">org.bodytrack.grapher.YAxis</a>}</span></h4>
+    <h4 class="name" id="getYAxis"><span class="type-signature"></span>getYAxis<span class="signature">(yAxisElementId<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="org.bodytrack.grapher.YAxis.html">org.bodytrack.grapher.YAxis</a>}</span></h4>
 
     
 
@@ -1250,7 +1437,9 @@ nothing if the given <code>plotContainerIteratorFunction</code> is not a functio
 
 <div class="description">
     Returns the <a href="org.bodytrack.grapher.YAxis.html">YAxis</a> for the specified DOM element ID.  Returns
-<code>null</code> if no such axis exists.
+<code>null</code> if no such axis exists. If the given <code>yAxisElementId</code> is undefined or
+<code>null</code>, this method returns the first Y axis found in the first PlotContainer found, or
+<code>null</code> if no Y axes have been added to any PlotContainer.
 </div>
 
 
@@ -1273,6 +1462,8 @@ nothing if the given <code>plotContainerIteratorFunction</code> is not a functio
 
         <th>Type</th>
 
+        
+        <th>Attributes</th>
         
 
         
@@ -1298,6 +1489,16 @@ nothing if the given <code>plotContainerIteratorFunction</code> is not a functio
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -1343,7 +1544,7 @@ nothing if the given <code>plotContainerIteratorFunction</code> is not a functio
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line844">line 844</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line890">line 890</a>
     </li></ul></dd>
     
 
@@ -1495,7 +1696,7 @@ CSS color descriptor such as a word ("green", "blue", etc.), a hex color (e.g. "
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line868">line 868</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line1093">line 1093</a>
     </li></ul></dd>
     
 
@@ -1626,7 +1827,7 @@ CSS color descriptor such as a word ("green", "blue", etc.), a hex color (e.g. "
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line1016">line 1016</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line1070">line 1070</a>
     </li></ul></dd>
     
 
@@ -1753,7 +1954,7 @@ the calculator to <code>null</code>.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line1002">line 1002</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line1056">line 1056</a>
     </li></ul></dd>
     
 
@@ -1933,7 +2134,7 @@ and all plot containers upon resize of the browser window.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line984">line 984</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line1038">line 1038</a>
     </li></ul></dd>
     
 
@@ -1981,7 +2182,7 @@ and all plot containers upon resize of the browser window.</td>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Thu Apr 02 2015 11:59:31 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Thu Apr 02 2015 13:47:17 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

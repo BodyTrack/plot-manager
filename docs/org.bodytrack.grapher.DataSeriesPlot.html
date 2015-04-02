@@ -44,7 +44,7 @@
 
     
 
-    <h4 class="name" id="DataSeriesPlot"><span class="type-signature"></span>new DataSeriesPlot<span class="signature">(datasource, dateAxis, yAxis, style<span class="signature-attributes">opt</span>, isLocalTime<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="DataSeriesPlot"><span class="type-signature"></span>new DataSeriesPlot<span class="signature">(plotId, datasource, dateAxis, yAxis, style<span class="signature-attributes">opt</span>, isLocalTime<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -87,6 +87,44 @@
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>plotId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">A identifier for this plot, unique within the PlotContainer.  Must be a number or a string.</td>
+        </tr>
+
     
 
         <tr>
@@ -306,7 +344,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line457">line 457</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line487">line 487</a>
     </li></ul></dd>
     
 
@@ -456,7 +494,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line543">line 543</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line582">line 582</a>
     </li></ul></dd>
     
 
@@ -620,7 +658,7 @@ point exists in the time window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line588">line 588</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line627">line 627</a>
     </li></ul></dd>
     
 
@@ -658,6 +696,109 @@ point exists in the time window.
 |
 
 <span class="param-type">null</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getId"><span class="type-signature"></span>getId<span class="signature">()</span><span class="type-signature"> &rarr; {string|number}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Returns the plot's ID.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line526">line 526</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+|
+
+<span class="param-type">number</span>
 
 
     </dd>
@@ -723,7 +864,7 @@ point exists in the time window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line565">line 565</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line604">line 604</a>
     </li></ul></dd>
     
 
@@ -827,7 +968,7 @@ point exists in the time window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line496">line 496</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line535">line 535</a>
     </li></ul></dd>
     
 
@@ -976,7 +1117,7 @@ point exists in the time window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line554">line 554</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line593">line 593</a>
     </li></ul></dd>
     
 
@@ -1110,7 +1251,7 @@ color (e.g. "rgb(255,0,0)" or "rgba(0,255,0,0.5)").
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line508">line 508</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line547">line 547</a>
     </li></ul></dd>
     
 
@@ -1241,7 +1382,7 @@ color (e.g. "rgb(255,0,0)" or "rgba(0,255,0,0.5)").
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line574">line 574</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line613">line 613</a>
     </li></ul></dd>
     
 
@@ -1289,7 +1430,7 @@ color (e.g. "rgb(255,0,0)" or "rgba(0,255,0,0.5)").
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Thu Apr 02 2015 11:59:31 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Thu Apr 02 2015 13:47:17 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
