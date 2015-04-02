@@ -1,4 +1,10 @@
 //======================================================================================================================
+// Class for making it easier to work with the Bodytrack Grapher.
+//
+// Dependencies:
+// * jQuery (http://jquery.com/)
+// * The Bodytrack Grapher
+//
 // Author: Chris Bartley (bartley@cmu.edu)
 //======================================================================================================================
 
@@ -54,9 +60,6 @@ if (!window['$']) {
    alert(nojQueryMsg);
    throw new Error(nojQueryMsg);
 }
-
-// TODO: depends on BodyTrack Grapher! (DateAxis, PlotContainer, etc...)
-
 //======================================================================================================================
 
 //======================================================================================================================
@@ -452,34 +455,28 @@ if (!window['$']) {
     * @param {boolean} [isLocalTime=false] - whether the plot's data uses local time. Defaults to false (UTC).
     */
    org.bodytrack.grapher.DataSeriesPlot = function(datasource, dateAxis, yAxis, style, isLocalTime) {
+      var self = this;
+
       var DEFAULT_STYLE = {
          "styles" : [
             { "type" : "line", "lineWidth" : 1, "show" : true, "color" : "black" },
-            { "type" : "circle", radius : 1, "lineWidth" : 1, "show" : true, "color" : "black", fill : true }
+            { "type" : "circle", "radius" : 1, "lineWidth" : 1, "show" : true, "color" : "black", "fill" : true }
          ],
          "highlight" : {
             "lineWidth" : 1,
             "styles" : [
                {
-                  "show" : true,
-                  "type" : "lollipop",
-                  "color" : "#000000",
-                  "radius" : 0,
-                  "lineWidth" : 1,
-                  "fill" : false
-               },
-               {
                   "type" : "circle",
-                  radius : 3,
+                  "radius" : 3,
                   "lineWidth" : 0.5,
                   "show" : true,
                   "color" : "#ff0000",
-                  fill : false
+                  "fill" : true
                },
                {
                   "show" : true,
                   "type" : "value",
-                  "fillColor" : "#ff0000",
+                  "fillColor" : "#000000",
                   "marginWidth" : 10,
                   "font" : "7pt Helvetica,Arial,Verdana,sans-serif",
                   "verticalOffset" : 7,
@@ -509,14 +506,14 @@ if (!window['$']) {
        * @param {string} colorDescriptor - a string description of the desired color.
        */
       this.setCursorColor = function(colorDescriptor) {
-         var theStyle = wrappedPlot.getStyle();
+         var theStyle = self.getStyle();
 
          if (!("cursor" in theStyle)) {
-            theStyle["cursor"] = {color: null};
+            theStyle["cursor"] = { color : null };
          }
          theStyle["cursor"]['color'] = colorDescriptor;
 
-         wrappedPlot.setStyle(theStyle);
+         self.setStyle(theStyle);
       };
 
       /**
@@ -543,7 +540,7 @@ if (!window['$']) {
        *
        * @param {dataPointListenerFunction} listener - function for handling a <code>DataPoint</code> event.
        */
-      this.addDataPointListener = function(listener){
+      this.addDataPointListener = function(listener) {
          if (typeof listener === 'function') {
             wrappedPlot.addDataPointListener(listener);
          }
@@ -554,10 +551,28 @@ if (!window['$']) {
        *
        * @param {dataPointListenerFunction} listener - function for handling a <code>DataPoint</code> event.
        */
-      this.removeDataPointListener = function(listener){
+      this.removeDataPointListener = function(listener) {
          if (typeof listener === 'function') {
             wrappedPlot.removeDataPointListener(listener);
          }
+      };
+
+      /**
+       * Returns the plot's current style.
+       *
+       * @returns {Object} the style
+       */
+      this.getStyle = function() {
+         return wrappedPlot.getStyle();
+      };
+
+      /**
+       * Sets the plot's style.
+       *
+       * @param {Object} the style
+       */
+      this.setStyle = function(style) {
+         return wrappedPlot.setStyle(style);
       };
 
       /**
@@ -656,11 +671,13 @@ if (!window['$']) {
        * @param {boolean} [isLocalTime=false] - whether the plot's data uses local time. Defaults to false (UTC).
        */
       this.addDataSeriesPlot = function(plotId, datasource, yAxisElementId, minValue, maxValue, style, isLocalTime) {
-         // TODO: add validation for adding the same plotId more than once!
-
          // validation
          if (!isNumberOrString(plotId)) {
             throw new Error("The plotId must be a number or a string.")
+         }
+
+         if (plotId in plotsAndYAxes) {
+            throw new Error("The plotId must be unique to the PlotContainer.")
          }
 
          if (typeof datasource !== 'function') {
@@ -738,8 +755,6 @@ if (!window['$']) {
             // see whether this Y axis is used by any other plots.  If not, remove it.
             if (yAxesAndPlotCount[yAxisElementId].plotCount <= 0) {
                delete yAxesAndPlotCount[yAxisElementId];
-               // TODO: remove axis listeners?
-
                // TODO: figure out a better way to remove the contents of the y axis
                $("#" + yAxisElementId).find("canvas").remove();
             }
@@ -794,8 +809,6 @@ if (!window['$']) {
     * Creates a <code>PlotManager</code> associated with date axis specified by the given
     * <code>dateAxisElementId</code>. If <code>minTimeSecs</code> and <code>maxTimeSecs</code> are not specified, they
     * visible time range defaults to the past 24 hours.
-    *
-    * TODO: talk about assumption of one date axis, and all plot containers having the same width as the date axis
     *
     * @class
     * @constructor
