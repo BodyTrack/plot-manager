@@ -157,6 +157,8 @@
       };
 
       function displayCursorTimeAndValue(plot, timeInSecs) {
+         // I'm using a window of [timeInSecs - 3600, timeInSecs + 0] here because I know that the data samples are
+         // recorded every hour (3600 seconds), and I want the closest data point *before* the given timeInSecs.
          var dataPoint = plot.getClosestDataPointToTimeWithinWindow(timeInSecs, 3600, 0);
          renderValueAndTimeInElement(dataPoint, cursorSampleValueAndTimeElement);
       }
