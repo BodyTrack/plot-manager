@@ -27,6 +27,12 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>//======================================================================================================================
+// Class for making it easier to work with the Bodytrack Grapher.
+//
+// Dependencies:
+// * jQuery (http://jquery.com/)
+// * The Bodytrack Grapher
+//
 // Author: Chris Bartley (bartley@cmu.edu)
 //======================================================================================================================
 
@@ -82,9 +88,6 @@ if (!window['$']) {
    alert(nojQueryMsg);
    throw new Error(nojQueryMsg);
 }
-
-// TODO: depends on BodyTrack Grapher! (DateAxis, PlotContainer, etc...)
-
 //======================================================================================================================
 
 //======================================================================================================================
@@ -480,34 +483,28 @@ if (!window['$']) {
     * @param {boolean} [isLocalTime=false] - whether the plot's data uses local time. Defaults to false (UTC).
     */
    org.bodytrack.grapher.DataSeriesPlot = function(datasource, dateAxis, yAxis, style, isLocalTime) {
+      var self = this;
+
       var DEFAULT_STYLE = {
          "styles" : [
             { "type" : "line", "lineWidth" : 1, "show" : true, "color" : "black" },
-            { "type" : "circle", radius : 1, "lineWidth" : 1, "show" : true, "color" : "black", fill : true }
+            { "type" : "circle", "radius" : 1, "lineWidth" : 1, "show" : true, "color" : "black", "fill" : true }
          ],
          "highlight" : {
             "lineWidth" : 1,
             "styles" : [
                {
-                  "show" : true,
-                  "type" : "lollipop",
-                  "color" : "#000000",
-                  "radius" : 0,
-                  "lineWidth" : 1,
-                  "fill" : false
-               },
-               {
                   "type" : "circle",
-                  radius : 3,
+                  "radius" : 3,
                   "lineWidth" : 0.5,
                   "show" : true,
                   "color" : "#ff0000",
-                  fill : false
+                  "fill" : true
                },
                {
                   "show" : true,
                   "type" : "value",
-                  "fillColor" : "#ff0000",
+                  "fillColor" : "#000000",
                   "marginWidth" : 10,
                   "font" : "7pt Helvetica,Arial,Verdana,sans-serif",
                   "verticalOffset" : 7,
@@ -537,14 +534,14 @@ if (!window['$']) {
        * @param {string} colorDescriptor - a string description of the desired color.
        */
       this.setCursorColor = function(colorDescriptor) {
-         var theStyle = wrappedPlot.getStyle();
+         var theStyle = self.getStyle();
 
          if (!("cursor" in theStyle)) {
-            theStyle["cursor"] = {color: null};
+            theStyle["cursor"] = { color : null };
          }
          theStyle["cursor"]['color'] = colorDescriptor;
 
-         wrappedPlot.setStyle(theStyle);
+         self.setStyle(theStyle);
       };
 
       /**
@@ -562,7 +559,7 @@ if (!window['$']) {
        * Function for handling data point events.  Note that the object passed to the function may be &lt;code>null&lt;/code>.
        *
        * @callback dataPointListenerFunction
-       * @param {DataPoint|null} dataPoint - the DataPoint
+       * @param {DataPoint|null} dataPoint - the {@link DataPoint}
        */
 
       /**
@@ -571,7 +568,7 @@ if (!window['$']) {
        *
        * @param {dataPointListenerFunction} listener - function for handling a &lt;code>DataPoint&lt;/code> event.
        */
-      this.addDataPointListener = function(listener){
+      this.addDataPointListener = function(listener) {
          if (typeof listener === 'function') {
             wrappedPlot.addDataPointListener(listener);
          }
@@ -582,10 +579,28 @@ if (!window['$']) {
        *
        * @param {dataPointListenerFunction} listener - function for handling a &lt;code>DataPoint&lt;/code> event.
        */
-      this.removeDataPointListener = function(listener){
+      this.removeDataPointListener = function(listener) {
          if (typeof listener === 'function') {
             wrappedPlot.removeDataPointListener(listener);
          }
+      };
+
+      /**
+       * Returns the plot's current style.
+       *
+       * @returns {Object} the style
+       */
+      this.getStyle = function() {
+         return wrappedPlot.getStyle();
+      };
+
+      /**
+       * Sets the plot's style.
+       *
+       * @param {Object} the style
+       */
+      this.setStyle = function(style) {
+         return wrappedPlot.setStyle(style);
       };
 
       /**
@@ -684,11 +699,13 @@ if (!window['$']) {
        * @param {boolean} [isLocalTime=false] - whether the plot's data uses local time. Defaults to false (UTC).
        */
       this.addDataSeriesPlot = function(plotId, datasource, yAxisElementId, minValue, maxValue, style, isLocalTime) {
-         // TODO: add validation for adding the same plotId more than once!
-
          // validation
          if (!isNumberOrString(plotId)) {
             throw new Error("The plotId must be a number or a string.")
+         }
+
+         if (plotId in plotsAndYAxes) {
+            throw new Error("The plotId must be unique to the PlotContainer.")
          }
 
          if (typeof datasource !== 'function') {
@@ -766,8 +783,6 @@ if (!window['$']) {
             // see whether this Y axis is used by any other plots.  If not, remove it.
             if (yAxesAndPlotCount[yAxisElementId].plotCount &lt;= 0) {
                delete yAxesAndPlotCount[yAxisElementId];
-               // TODO: remove axis listeners?
-
                // TODO: figure out a better way to remove the contents of the y axis
                $("#" + yAxisElementId).find("canvas").remove();
             }
@@ -822,8 +837,6 @@ if (!window['$']) {
     * Creates a &lt;code>PlotManager&lt;/code> associated with date axis specified by the given
     * &lt;code>dateAxisElementId&lt;/code>. If &lt;code>minTimeSecs&lt;/code> and &lt;code>maxTimeSecs&lt;/code> are not specified, they
     * visible time range defaults to the past 24 hours.
-    *
-    * TODO: talk about assumption of one date axis, and all plot containers having the same width as the date axis
     *
     * @class
     * @constructor
@@ -921,10 +934,10 @@ if (!window['$']) {
       };
 
       /**
-       * Function used by a PlotContainer iterator, used for performing an operation on a given PlotContainer.
+       * Function used by a {@link org.bodytrack.grapher.PlotContainer PlotContainer} iterator, used for performing an operation on a given PlotContainer.
        *
        * @callback plotContainerIteratorFunction
-       * @param {org.bodytrack.grapher.PlotContainer} plotContainer - the PlotContainer object
+       * @param {org.bodytrack.grapher.PlotContainer} plotContainer - the {@link org.bodytrack.grapher.PlotContainer PlotContainer} object
        */
 
       /**
@@ -955,7 +968,7 @@ if (!window['$']) {
        * Helper method for adding a plot, shorthand for
        * &lt;code>plotManager.addPlotContainer('plot_container').addDataSeriesPlot(...)&lt;/code>.
        *
-       * @param {string|number} plotId - A identifier for this plot, unique within the PlotContainer.  Must be a number or a string.
+       * @param {string|number} plotId - A identifier for this plot, unique within the {@link org.bodytrack.grapher.PlotContainer PlotContainer}.  Must be a number or a string.
        * @param {datasourceFunction} datasource - function with signature &lt;code>function(level, offset, successCallback)&lt;/code> resposible for returning tile JSON for the given &lt;code>level&lt;/code> and &lt;code>offset&lt;/code>
        * @param {string} plotContainerElementId - the DOM element ID for the container div into which this plot should be added
        * @param {string} yAxisElementId - the DOM element ID for the container div holding this plot's Y axis
@@ -978,7 +991,7 @@ if (!window['$']) {
 
       /**
        * Helper function which calculates and returns the desired width of the date axis and all plot containers managed
-       * by this PlotManager.
+       * by this {@link org.bodytrack.grapher.PlotManager PlotManager}.
        *
        * @callback widthCalculatorFunction
        * @returns {int} the desired width of the date axis
@@ -1077,7 +1090,7 @@ if (!window['$']) {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Wed Apr 01 2015 16:55:11 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Thu Apr 02 2015 11:59:31 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
