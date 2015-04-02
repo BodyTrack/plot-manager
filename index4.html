@@ -88,8 +88,22 @@
          }).click();
 
          $("#is_y_axis_range_constrained").click(function() {
+            // NOTE: In the if branch, I call getYAxis() with no arguments, but in the else branch, I call getYAxis()
+            // giving it the DOM element ID of the Y axis.  This is merely to illustrate the shorthand functionality
+            // of getYAxis(), where it returns the first Y axis found if no DOM element ID is specified.  This is handy
+            // for usages of the PlotManager where you only have a single plot or at least a single Y axis.
+            // For this example, where there is a single PlotContainer containing a single plot, all of the following
+            // are equivalent ways to get a reference to the Y axis:
+            //
+            //    plotManager.getYAxis()
+            //    plotManager.getYAxis('y_axis')
+            //    plotManager.getPlotContainer().getYAxis()
+            //    plotManager.getPlotContainer().getYAxis('y_axis')
+            //    plotManager.getPlotContainer("plot_container").getYAxis()
+            //    plotManager.getPlotContainer("plot_container").getYAxis('y_axis')
+            //
             if ($("#is_y_axis_range_constrained").prop("checked")) {
-               plotManager.getYAxis("y_axis").constrainRangeTo(minValue, maxValue);
+               plotManager.getYAxis().constrainRangeTo(minValue, maxValue);
             }
             else {
                plotManager.getYAxis("y_axis").clearRangeConstraints();
