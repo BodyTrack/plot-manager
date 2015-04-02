@@ -92,9 +92,23 @@
 
          // configure checkbox
          $("#is_listener_attached").click(function() {
+            // NOTE: In the if branch, I call plotManager.getPlot() with no arguments, but in the else branch, I get the
+            // plot with the call plotManager.getPlotContainer("plot_container").getPlot("my_plot"). This is merely to
+            // illustrate the shorthand functionality of plotManager.getPlot(), where it returns the first plot found if
+            // no plotId is specified.  This is handy for usages of the PlotManager where you only have a single plot.
+            // For this example, where there is a single PlotContainer containing a single plot, all of the following
+            // are equivalent ways to get a reference to the plot:
+            //
+            //    plotManager.getPlot()
+            //    plotManager.getPlot('my_plot')
+            //    plotManager.getPlotContainer().getPlot()
+            //    plotManager.getPlotContainer().getPlot('my_plot')
+            //    plotManager.getPlotContainer("plot_container").getPlot()
+            //    plotManager.getPlotContainer("plot_container").getPlot('my_plot')
+            //
             if ($(this).prop("checked")) {
                $("#sample_value_and_time").empty().hide();
-               plotManager.getPlotContainer("plot_container").getPlot("my_plot").addDataPointListener(dataPointListener);
+               plotManager.getPlot().addDataPointListener(dataPointListener);
             }
             else {
                $("#sample_value_and_time").html("data point listener not attached").show();

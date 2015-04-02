@@ -89,6 +89,35 @@ if (!window['$']) {
    };
 
    /**
+    * Returns the item in the given <code>hash</code> associated with the given <code>keyToFind</code>. If no such
+    * item exists, it returns <code>null</code>. If the <code>keyToFind</code> undefined or <code>null</code>, this
+    * method returns the first item found in the hash.  If the hash is empty, it returns <code>null</code>.
+    *
+    * @private
+    * @param {Object} hash - the hash
+    * @param {string|number} [keyToFind] - the key of the item to find in the hash
+    * @return {*|null}
+    */
+   var getItemFromHashOrFindFirst = function(hash, keyToFind) {
+      if (typeof hash !== 'undefined' && hash != null) {
+         // if the keyToFind is undefined or null, just return the first item in the hash, if any
+         if (typeof keyToFind === 'undefined' || keyToFind == null) {
+            var keys = Object.keys(hash);
+            if (keys.length > 0) {
+               return hash[keys[0]];
+            }
+         }
+         else {
+            if (keyToFind in hash) {
+               return hash[keyToFind];
+            }
+         }
+      }
+
+      return null;
+   };
+
+   /**
     * The min and max values for an axis's range.
     *
     * @typedef {Object} AxisRange
@@ -448,13 +477,14 @@ if (!window['$']) {
     *
     * @class
     * @constructor
+    * @param {string|number} plotId - A identifier for this plot, unique within the PlotContainer.  Must be a number or a string.
     * @param {datasourceFunction} datasource - function with signature <code>function(level, offset, successCallback)</code> resposible for returning tile JSON for the given <code>level</code> and <code>offset</code>
     * @param {org.bodytrack.grapher.DateAxis} dateAxis - the date axis
     * @param {org.bodytrack.grapher.YAxis} yAxis - the Y axis
     * @param {Object} [style] - the style object. A default style is used if undefined, null, or not an object.
     * @param {boolean} [isLocalTime=false] - whether the plot's data uses local time. Defaults to false (UTC).
     */
-   org.bodytrack.grapher.DataSeriesPlot = function(datasource, dateAxis, yAxis, style, isLocalTime) {
+   org.bodytrack.grapher.DataSeriesPlot = function(plotId, datasource, dateAxis, yAxis, style, isLocalTime) {
       var self = this;
 
       var DEFAULT_STYLE = {
@@ -487,6 +517,15 @@ if (!window['$']) {
       };
 
       var wrappedPlot = null;
+
+      /**
+       * Returns the plot's ID.
+       *
+       * @return {string|number}
+       */
+      this.getId = function() {
+         return plotId;
+      };
 
       /**
        * Returns the wrapped <code>DataSeriesPlot</code> object.
@@ -631,28 +670,33 @@ if (!window['$']) {
 
       /**
        * Returns the {@link org.bodytrack.grapher.YAxis YAxis} for the specified DOM element ID.  Returns
-       * <code>null</code> if no such axis exists.
+       * <code>null</code> if no such axis exists. If the given <code>yAxisElementId</code> is undefined or <code>null</code>,
+       * this method returns the first Y axis found, or <code>null</code> if none have been added.
        *
-       * @param {string} yAxisElementId - the DOM element ID for the container div holding the desired Y axis
+       * @param {string} [yAxisElementId] - the DOM element ID for the container div holding the desired Y axis
        * @return {org.bodytrack.grapher.YAxis}
        */
       this.getYAxis = function(yAxisElementId) {
-         if (yAxisElementId in yAxesAndPlotCount) {
-            return yAxesAndPlotCount[yAxisElementId].yAxis;
+         var yAxisAndPlotCount = getItemFromHashOrFindFirst(yAxesAndPlotCount, yAxisElementId);
+         if (yAxisAndPlotCount) {
+            return yAxisAndPlotCount.yAxis;
          }
+
          return null;
       };
 
       /**
        * Returns the {@link org.bodytrack.grapher.DataSeriesPlot YAxis} with the specified <code>plotId</code>. Returns
-       * <code>null</code> if no such plot exists.
+       * <code>null</code> if no such plot exists.  If the given <code>plotId</code> is undefined or <code>null</code>,
+       * this method returns the first plot found, or <code>null</code> if none have been added.
        *
-       * @param {string|number} plotId - A identifier for the plot, unique within the PlotContainer.  Must be a number or a string.
+       * @param {string|number} [plotId] - A identifier for the plot, unique within the PlotContainer.  Must be a number or a string.
        * @return {org.bodytrack.grapher.DataSeriesPlot}
        */
       this.getPlot = function(plotId) {
-         if (plotId in plotsAndYAxes) {
-            return plotsAndYAxes[plotId].plot;
+         var plotAndYAxis = getItemFromHashOrFindFirst(plotsAndYAxes, plotId);
+         if (plotAndYAxis) {
+            return plotAndYAxis.plot;
          }
 
          return null;
@@ -722,7 +766,7 @@ if (!window['$']) {
          }
 
          // create the plot
-         var plot = new org.bodytrack.grapher.DataSeriesPlot(datasource, dateAxis, yAxis, style, isLocalTime);
+         var plot = new org.bodytrack.grapher.DataSeriesPlot(plotId, datasource, dateAxis, yAxis, style, isLocalTime);
 
          plotsAndYAxes[plotId] = {
             plot : plot,
@@ -836,9 +880,11 @@ if (!window['$']) {
 
       /**
        * Returns the {@link org.bodytrack.grapher.YAxis YAxis} for the specified DOM element ID.  Returns
-       * <code>null</code> if no such axis exists.
+       * <code>null</code> if no such axis exists. If the given <code>yAxisElementId</code> is undefined or
+       * <code>null</code>, this method returns the first Y axis found in the first PlotContainer found, or
+       * <code>null</code> if no Y axes have been added to any PlotContainer.
        *
-       * @param {string} yAxisElementId - the DOM element ID for the container div holding the desired Y axis
+       * @param {string} [yAxisElementId] - the DOM element ID for the container div holding the desired Y axis
        * @return {org.bodytrack.grapher.YAxis}
        */
       this.getYAxis = function(yAxisElementId) {
@@ -858,36 +904,44 @@ if (!window['$']) {
       };
 
       /**
-       * Sets the cursor to the color described by the given <code>colorDescriptor</code>, or to black if the given
-       * <code>colorDescriptor</code> is undefined, <code>null</code>, or invalid. The color descriptor can be any valid
-       * CSS color descriptor such as a word ("green", "blue", etc.), a hex color (e.g. "#ff0000"), or an RGB color
-       * (e.g. "rgb(255,0,0)" or "rgba(0,255,0,0.5)").
+       * Returns the first plot found with the given <code>plotId</code>. Note that since the <code>plotId</code> need
+       * only be unique within its {@link org.bodytrack.grapher.PlotContainer PlotContainer}, it is possible to have
+       * more than one plot with the same <code>plotId</code> within a PlotManager.  Thus, this is merely a convenience
+       * method which iterates over all PlotContainers looking for the specified plot and returns the first one found.
+       * If no matching plot is found, this method returns null.  If the given <code>plotId</code> is undefined or
+       * <code>null</code>, this method returns the first plot found in the first PlotContainer found, or
+       * <code>null</code> if no plots have been added to any PlotContainer.
        *
-       * @param {string} colorDescriptor - a string description of the desired color.
+       * @param {string|number} [plotId] - A identifier for the plot, unique within its {@link org.bodytrack.grapher.PlotContainer PlotContainer}.  Must be a number or a string.
+       * @return {org.bodytrack.grapher.DataSeriesPlot|null}
        */
-      this.setCursorColor = function(colorDescriptor) {
-         // first set the cursor color in the date axis
-         dateAxis.setCursorColor(colorDescriptor);
+      this.getPlot = function(plotId) {
+         // iterate over the PlotContainers this way instead of using self.forEachPlotContainer() so that we can return
+         // as soon as we find a matching plot.
+         var plotContainerElementIds = Object.keys(plotContainers);
+         for (var i = 0; i < plotContainerElementIds.length; i++) {
+            var plotContainerElementId = plotContainerElementIds[i];
+            var plotContainer = plotContainers[plotContainerElementId];
+            var plot = plotContainer.getPlot(plotId);
+            if (plot != null) {
+               return plot;
+            }
+         }
 
-         // now iterate over every plot container and set the cursor color in each
-         Object.keys(plotContainers).forEach(function(plotContainerId) {
-            plotContainers[plotContainerId].setCursorColor(colorDescriptor);
-         });
+         return null;
       };
 
       /**
        * Returns the {@link org.bodytrack.grapher.PlotContainer PlotContainer} for the specified DOM element ID. Returns
-       * <code>null</code> if no such plot container exists.
+       * <code>null</code> if no such plot container exists. If the given <code>plotContainerElementId</code> is
+       * undefined or <code>null</code>, this method returns the first PlotContainer found, or <code>null</code> if none
+       * have been added.
        *
-       * @param {string} plotContainerElementId - the DOM element ID for the container div holding the desired plot container
+       * @param {string} [plotContainerElementId] - the DOM element ID for the container div holding the desired plot container.
        * @return {org.bodytrack.grapher.PlotContainer}
        */
       this.getPlotContainer = function(plotContainerElementId) {
-         if (plotContainerElementId in plotContainers) {
-            return plotContainers[plotContainerElementId];
-         }
-
-         return null;
+         return getItemFromHashOrFindFirst(plotContainers, plotContainerElementId);
       };
 
       /**
@@ -1026,6 +1080,24 @@ if (!window['$']) {
          if (isWindowWidthResizeListeningEnabled && widthCalculator != null) {
             self.setWidth(widthCalculator());
          }
+      };
+
+      /**
+       * Sets the cursor to the color described by the given <code>colorDescriptor</code>, or to black if the given
+       * <code>colorDescriptor</code> is undefined, <code>null</code>, or invalid. The color descriptor can be any valid
+       * CSS color descriptor such as a word ("green", "blue", etc.), a hex color (e.g. "#ff0000"), or an RGB color
+       * (e.g. "rgb(255,0,0)" or "rgba(0,255,0,0.5)").
+       *
+       * @param {string} colorDescriptor - a string description of the desired color.
+       */
+      this.setCursorColor = function(colorDescriptor) {
+         // first set the cursor color in the date axis
+         dateAxis.setCursorColor(colorDescriptor);
+
+         // now iterate over every plot container and set the cursor color in each
+         self.forEachPlotContainer(function(plotContainer) {
+            plotContainer.setCursorColor(colorDescriptor);
+         });
       };
 
       // the "constructor"
