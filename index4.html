@@ -80,7 +80,9 @@
          // configure checkboxes (and call click() on them to enable constraints)
          $("#is_date_axis_range_constrained").click(function() {
             if ($("#is_date_axis_range_constrained").prop("checked")) {
-               plotManager.getDateAxis().constrainRangeTo(minTimeSecs, maxTimeSecs);
+               // NOTE: the axis constrainRangeTo() and setRange() methods can be called with one argument or two. See
+               // the API docs for details.  Here, I demonstrate calling it with one AxisRange argument.
+               plotManager.getDateAxis().constrainRangeTo({ min : minTimeSecs, max : maxTimeSecs });
             }
             else {
                plotManager.getDateAxis().clearRangeConstraints();

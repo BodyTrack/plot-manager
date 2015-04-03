@@ -81,10 +81,60 @@ if (!window['$']) {
       return isString(o) || isNumeric(o);
    };
 
-   var validateAxisRange = function(minTimeSecs, maxTimeSecs) {
+   /**
+    * The min and max values for an axis's range.
+    *
+    * @typedef {Object} AxisRange
+    * @property {number} min - the range min
+    * @property {number} max - the range max
+    */
+
+   /**
+    * An axis change event object.
+    *
+    * @typedef {Object} AxisChangeEvent
+    * @property {number} min - the axis's min value
+    * @property {number} max - the axis's max value
+    * @property {number|null} cursorPosition - the value of the cursor
+    * @property {string|null} cursorPositionString - the value of the cursor, expressed as a string
+    */
+
+   /**
+    * Function for handling axis change events.  Note that the event object passed to the function may be
+    * <code>null</code>.
+    *
+    * @callback axisChangeListenerFunction
+    * @param {AxisChangeEvent|null} axisChangeEvent - the <code>{@link AxisChangeEvent}</code>
+    */
+
+   /**
+    * The statistics about plot data within a specific time range.
+    *
+    * @typedef {Object} PlotStatistics
+    * @property {number} count - number of data points in the range
+    * @property {boolean} hasData - whether there are any data points in the range
+    * @property {number|null} minValue - the minimum Y value in the range, or <code>null</code> (or not present in the object) if there is no data within the range.
+    * @property {number|null} maxValue - the maximum Y value in the range, or <code>null</code> (or not present in the object) if there is no data within the range.
+    */
+
+   /**
+    *
+    * @param {AxisRange|number} rangeOrMin - an {@link AxisRange} or a double representing the axis min. If
+    * <code>null</code>, undefined, non-numeric, or not an <code>AxisRange</code>, then <code>-1*Number.MAX_VALUE</code>
+    * is used instead.
+    * @param {number} max - a double representing the axis max. If <code>null</code>, undefined, or non-numeric, then
+    * <code>Number.MAX_VALUE</code> is used instead.
+    * @return {AxisRange}
+    */
+   var validateAxisRange = function(rangeOrMin, max) {
+      var min = rangeOrMin;
+      if (typeof rangeOrMin == 'object' && rangeOrMin != null) {
+         min = rangeOrMin.min;
+         max = rangeOrMin.max;
+      }
       return {
-         min : isNumeric(minTimeSecs) ? minTimeSecs : -1 * Number.MAX_VALUE,
-         max : isNumeric(maxTimeSecs) ? maxTimeSecs : Number.MAX_VALUE
+         min : isNumeric(min) ? min : -1 * Number.MAX_VALUE,
+         max : isNumeric(max) ? max : Number.MAX_VALUE
       }
    };
 
@@ -116,32 +166,6 @@ if (!window['$']) {
 
       return null;
    };
-
-   /**
-    * The min and max values for an axis's range.
-    *
-    * @typedef {Object} AxisRange
-    * @property {number} min - the range min
-    * @property {number} max - the range max
-    */
-
-   /**
-    * An axis change event object.
-    *
-    * @typedef {Object} AxisChangeEvent
-    * @property {number} min - the axis's min value
-    * @property {number} max - the axis's max value
-    * @property {number|null} cursorPosition - the value of the cursor
-    * @property {string|null} cursorPositionString - the value of the cursor, expressed as a string
-    */
-
-   /**
-    * Function for handling axis change events.  Note that the event object passed to the function may be
-    * <code>null</code>.
-    *
-    * @callback axisChangeListenerFunction
-    * @param {AxisChangeEvent|null} axisChangeEvent - the <code>{@link AxisChangeEvent}</code>
-    */
 
    /**
     * Wrapper class to make it easier to work with a date axis.
@@ -250,30 +274,29 @@ if (!window['$']) {
       /**
        * Sets the visible range of the axis.
        *
-       * @param {number} minTimeSecs - a double representing the time in Unix time seconds of the start of the
-       * visible time range. If <code>null</code>, undefined, or non-numeric, then <code>-1*Number.MAX_VALUE</code>
-       * is used instead.
-       * @param {number} maxTimeSecs - a double representing the time in Unix time seconds of the end of the visible
+       * @param {AxisRange|number} rangeOrMinTimeSecs - an {@link AxisRange} or a double representing the time in Unix
+       * time seconds of the start of the visible time range. If <code>null</code>, undefined, non-numeric, or not an
+       * <code>AxisRange</code>, then <code>-1*Number.MAX_VALUE</code> is used instead.
+       * @param {number} [maxTimeSecs] - a double representing the time in Unix time seconds of the end of the visible
        * time range. If <code>null</code>, undefined, or non-numeric, then <code>Number.MAX_VALUE</code> is used
        * instead.
        */
-      this.setRange = function(minTimeSecs, maxTimeSecs) {
-         var validRange = validateAxisRange(minTimeSecs, maxTimeSecs);
-
+      this.setRange = function(rangeOrMinTimeSecs, maxTimeSecs) {
+         var validRange = validateAxisRange(rangeOrMinTimeSecs, maxTimeSecs);
          wrappedAxis.setRange(validRange.min, validRange.max);
       };
 
       /**
        * Constrains the range of the axis so that the user cannot pan/zoom outside the specified range.
        *
-       * @param {number} minTimeSecs - a double representing the minimum time in Unix time seconds of time range. If
-       * <code>null</code>, undefined, or non-numeric, then <code>-1*Number.MAX_VALUE</code> is used instead.
-       * @param {number} maxTimeSecs - a double representing the maximum time in Unix time seconds of time range. If
+       * @param {AxisRange|number} rangeOrMinTimeSecs - an {@link AxisRange} a double representing the minimum time in
+       * Unix time seconds of the time range. If <code>null</code>, undefined, non-numeric, or not an
+       * <code>AxisRange</code>, then <code>-1*Number.MAX_VALUE</code> is used instead.
+       * @param {number} [maxTimeSecs] - a double representing the maximum time in Unix time seconds of the time range. If
        * <code>null</code>, undefined, or non-numeric, then <code>Number.MAX_VALUE</code> is used instead.
        */
-      this.constrainRangeTo = function(minTimeSecs, maxTimeSecs) {
-         var validRange = validateAxisRange(minTimeSecs, maxTimeSecs);
-
+      this.constrainRangeTo = function(rangeOrMinTimeSecs, maxTimeSecs) {
+         var validRange = validateAxisRange(rangeOrMinTimeSecs, maxTimeSecs);
          wrappedAxis.setMaxRange(validRange.min, validRange.max);
       };
 
@@ -385,14 +408,15 @@ if (!window['$']) {
       /**
        * Sets the visible range of the axis.
        *
-       * @param {number} min - the min value. If <code>null</code>, undefined, or non-numeric, then
-       * <code>-1*Number.MAX_VALUE</code> is used instead.
+       * @param {AxisRange|number} rangeOrMin - an {@link AxisRange} a double representing the minimum value. If <code>null</code>, undefined, non-numeric, or not an
+       * <code>AxisRange</code>, then <code>-1*Number.MAX_VALUE</code> is used instead.
        * @param {number} max - the max value. If <code>null</code>, undefined, or non-numeric, then
-       * <code>Number.MAX_VALUE</code> is used instead.
+       * <code>Number.MAX_VALUE</code> is used instead.  This argument is ignored (but required) if the first argument
+       * is an {@link AxisRange}.
        * @param {boolean} [willNotPad=false] - whether to pad the range
        */
-      this.setRange = function(min, max, willNotPad) {
-         var range = validateAxisRange(min, max);
+      this.setRange = function(rangeOrMin, max, willNotPad) {
+         var range = validateAxisRange(rangeOrMin, max);
 
          // pad, if desired
          if (!willNotPad) {
@@ -405,14 +429,15 @@ if (!window['$']) {
       /**
        * Constrains the range of the axis so that the user cannot pan/zoom outside the specified range.
        *
-       * @param {number} min - the min value. If <code>null</code>, undefined, or non-numeric, then
-       * <code>-1*Number.MAX_VALUE</code> is used instead.
+       * @param {AxisRange|number} rangeOrMin - an {@link AxisRange} a double representing the minimum value. If <code>null</code>, undefined, non-numeric, or not an
+       * <code>AxisRange</code>, then <code>-1*Number.MAX_VALUE</code> is used instead.
        * @param {number} max - the max value. If <code>null</code>, undefined, or non-numeric, then
-       * <code>Number.MAX_VALUE</code> is used instead.
+       * <code>Number.MAX_VALUE</code> is used instead.  This argument is ignored (but required) if the first argument
+       * is an {@link AxisRange}.
        * @param {boolean} [willNotPad=false] - whether to pad the range
        */
-      this.constrainRangeTo = function(min, max, willNotPad) {
-         var range = validateAxisRange(min, max);
+      this.constrainRangeTo = function(rangeOrMin, max, willNotPad) {
+         var range = validateAxisRange(rangeOrMin, max);
 
          // pad, if desired
          if (!willNotPad) {
@@ -534,6 +559,29 @@ if (!window['$']) {
        */
       this.getWrappedPlot = function() {
          return wrappedPlot;
+      };
+
+      /**
+       * Gets statistcs about the data within the specified time range.
+       *
+       * @param {AxisRange|number} rangeOrMinTimeSecs - an {@link AxisRange} or a double representing the time in Unix
+       * time seconds of the start of the visible time range. If <code>null</code>, undefined, non-numeric, or not an
+       * <code>AxisRange</code>, then <code>-1*Number.MAX_VALUE</code> is used instead.
+       * @param {number} [maxTimeSecs] - a double representing the time in Unix time seconds of the end of the visible
+       * time range. If <code>null</code>, undefined, or non-numeric, then <code>Number.MAX_VALUE</code> is used
+       * instead.
+       * @returns {PlotStatistics}
+       */
+      this.getStatisticsWithinRange = function(rangeOrMinTimeSecs, maxTimeSecs) {
+         var validRange = validateAxisRange(rangeOrMinTimeSecs, maxTimeSecs);
+         var rawStatistics = wrappedPlot.getSimpleStatistics(validRange.min, validRange.max);
+
+         return {
+            count : rawStatistics['count'],
+            hasData : rawStatistics['has_data'],
+            minValue : rawStatistics['has_data'] ? rawStatistics['y_min'] : null,
+            maxValue : rawStatistics['has_data'] ? rawStatistics['y_max'] : null
+         };
       };
 
       /**
@@ -851,7 +899,7 @@ if (!window['$']) {
 
    /**
     * Creates a <code>PlotManager</code> associated with date axis specified by the given
-    * <code>dateAxisElementId</code>. If <code>minTimeSecs</code> and <code>maxTimeSecs</code> are not specified, they
+    * <code>dateAxisElementId</code>. If <code>minTimeSecs</code> and <code>maxTimeSecs</code> are not specified, the
     * visible time range defaults to the past 24 hours.
     *
     * @class
