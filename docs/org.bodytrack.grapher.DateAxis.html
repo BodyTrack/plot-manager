@@ -144,7 +144,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line153">line 153</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line177">line 177</a>
     </li></ul></dd>
     
 
@@ -294,7 +294,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line182">line 182</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line206">line 206</a>
     </li></ul></dd>
     
 
@@ -376,7 +376,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line283">line 283</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line306">line 306</a>
     </li></ul></dd>
     
 
@@ -407,7 +407,7 @@ function.
 
     
 
-    <h4 class="name" id="constrainRangeTo"><span class="type-signature"></span>constrainRangeTo<span class="signature">(minTimeSecs, maxTimeSecs)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="constrainRangeTo"><span class="type-signature"></span>constrainRangeTo<span class="signature">(rangeOrMinTimeSecs, maxTimeSecs<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -438,6 +438,8 @@ function.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -450,12 +452,15 @@ function.
 
         <tr>
             
-                <td class="name"><code>minTimeSecs</code></td>
+                <td class="name"><code>rangeOrMinTimeSecs</code></td>
             
 
             <td class="type">
             
                 
+<span class="param-type"><a href="global.html#AxisRange">AxisRange</a></span>
+|
+
 <span class="param-type">number</span>
 
 
@@ -463,11 +468,20 @@ function.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">a double representing the minimum time in Unix time seconds of time range. If
-<code>null</code>, undefined, or non-numeric, then <code>-1*Number.MAX_VALUE</code> is used instead.</td>
+            <td class="description last">an <a href="global.html#AxisRange">AxisRange</a> a double representing the minimum time in
+Unix time seconds of the time range. If <code>null</code>, undefined, non-numeric, or not an
+<code>AxisRange</code>, then <code>-1*Number.MAX_VALUE</code> is used instead.</td>
         </tr>
 
     
@@ -487,10 +501,20 @@ function.
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">a double representing the maximum time in Unix time seconds of time range. If
+            <td class="description last">a double representing the maximum time in Unix time seconds of the time range. If
 <code>null</code>, undefined, or non-numeric, then <code>Number.MAX_VALUE</code> is used instead.</td>
         </tr>
 
@@ -532,7 +556,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line274">line 274</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line298">line 298</a>
     </li></ul></dd>
     
 
@@ -614,7 +638,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line216">line 216</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line240">line 240</a>
     </li></ul></dd>
     
 
@@ -714,7 +738,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line163">line 163</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line187">line 187</a>
     </li></ul></dd>
     
 
@@ -814,7 +838,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line204">line 204</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line228">line 228</a>
     </li></ul></dd>
     
 
@@ -914,7 +938,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line303">line 303</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line326">line 326</a>
     </li></ul></dd>
     
 
@@ -1018,7 +1042,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line172">line 172</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line196">line 196</a>
     </li></ul></dd>
     
 
@@ -1119,7 +1143,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line234">line 234</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line258">line 258</a>
     </li></ul></dd>
     
 
@@ -1250,7 +1274,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line193">line 193</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line217">line 217</a>
     </li></ul></dd>
     
 
@@ -1384,7 +1408,7 @@ CSS color descriptor such as a word ("green", "blue", etc.), a hex color (e.g. "
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line246">line 246</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line270">line 270</a>
     </li></ul></dd>
     
 
@@ -1516,7 +1540,7 @@ is <code>null</code> or undefined.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line226">line 226</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line250">line 250</a>
     </li></ul></dd>
     
 
@@ -1547,7 +1571,7 @@ is <code>null</code> or undefined.
 
     
 
-    <h4 class="name" id="setRange"><span class="type-signature"></span>setRange<span class="signature">(minTimeSecs, maxTimeSecs)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="setRange"><span class="type-signature"></span>setRange<span class="signature">(rangeOrMinTimeSecs, maxTimeSecs<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -1578,6 +1602,8 @@ is <code>null</code> or undefined.
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -1590,12 +1616,15 @@ is <code>null</code> or undefined.
 
         <tr>
             
-                <td class="name"><code>minTimeSecs</code></td>
+                <td class="name"><code>rangeOrMinTimeSecs</code></td>
             
 
             <td class="type">
             
                 
+<span class="param-type"><a href="global.html#AxisRange">AxisRange</a></span>
+|
+
 <span class="param-type">number</span>
 
 
@@ -1603,12 +1632,20 @@ is <code>null</code> or undefined.
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last">a double representing the time in Unix time seconds of the start of the
-visible time range. If <code>null</code>, undefined, or non-numeric, then <code>-1*Number.MAX_VALUE</code>
-is used instead.</td>
+            <td class="description last">an <a href="global.html#AxisRange">AxisRange</a> or a double representing the time in Unix
+time seconds of the start of the visible time range. If <code>null</code>, undefined, non-numeric, or not an
+<code>AxisRange</code>, then <code>-1*Number.MAX_VALUE</code> is used instead.</td>
         </tr>
 
     
@@ -1627,6 +1664,16 @@ is used instead.</td>
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -1674,7 +1721,7 @@ instead.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line260">line 260</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line284">line 284</a>
     </li></ul></dd>
     
 
@@ -1805,7 +1852,7 @@ instead.</td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line292">line 292</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line315">line 315</a>
     </li></ul></dd>
     
 
@@ -1853,7 +1900,7 @@ instead.</td>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Thu Apr 02 2015 13:47:17 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Fri Apr 03 2015 16:54:04 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

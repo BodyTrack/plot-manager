@@ -277,7 +277,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line327">line 327</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line350">line 350</a>
     </li></ul></dd>
     
 
@@ -427,7 +427,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line356">line 356</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line379">line 379</a>
     </li></ul></dd>
     
 
@@ -509,7 +509,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line428">line 428</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line453">line 453</a>
     </li></ul></dd>
     
 
@@ -540,7 +540,7 @@ function.
 
     
 
-    <h4 class="name" id="constrainRangeTo"><span class="type-signature"></span>constrainRangeTo<span class="signature">(min, max, willNotPad<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="constrainRangeTo"><span class="type-signature"></span>constrainRangeTo<span class="signature">(rangeOrMin, max, willNotPad<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -587,12 +587,15 @@ function.
 
         <tr>
             
-                <td class="name"><code>min</code></td>
+                <td class="name"><code>rangeOrMin</code></td>
             
 
             <td class="type">
             
                 
+<span class="param-type"><a href="global.html#AxisRange">AxisRange</a></span>
+|
+
 <span class="param-type">number</span>
 
 
@@ -615,8 +618,8 @@ function.
                 </td>
             
 
-            <td class="description last">the min value. If <code>null</code>, undefined, or non-numeric, then
-<code>-1*Number.MAX_VALUE</code> is used instead.</td>
+            <td class="description last">an <a href="global.html#AxisRange">AxisRange</a> a double representing the minimum value. If <code>null</code>, undefined, non-numeric, or not an
+<code>AxisRange</code>, then <code>-1*Number.MAX_VALUE</code> is used instead.</td>
         </tr>
 
     
@@ -652,7 +655,8 @@ function.
             
 
             <td class="description last">the max value. If <code>null</code>, undefined, or non-numeric, then
-<code>Number.MAX_VALUE</code> is used instead.</td>
+<code>Number.MAX_VALUE</code> is used instead.  This argument is ignored (but required) if the first argument
+is an <a href="global.html#AxisRange">AxisRange</a>.</td>
         </tr>
 
     
@@ -732,7 +736,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line414">line 414</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line439">line 439</a>
     </li></ul></dd>
     
 
@@ -814,7 +818,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line337">line 337</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line360">line 360</a>
     </li></ul></dd>
     
 
@@ -914,7 +918,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line378">line 378</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line401">line 401</a>
     </li></ul></dd>
     
 
@@ -1014,7 +1018,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line346">line 346</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line369">line 369</a>
     </li></ul></dd>
     
 
@@ -1163,7 +1167,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line367">line 367</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line390">line 390</a>
     </li></ul></dd>
     
 
@@ -1194,7 +1198,7 @@ function.
 
     
 
-    <h4 class="name" id="setRange"><span class="type-signature"></span>setRange<span class="signature">(min, max, willNotPad<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="setRange"><span class="type-signature"></span>setRange<span class="signature">(rangeOrMin, max, willNotPad<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -1241,12 +1245,15 @@ function.
 
         <tr>
             
-                <td class="name"><code>min</code></td>
+                <td class="name"><code>rangeOrMin</code></td>
             
 
             <td class="type">
             
                 
+<span class="param-type"><a href="global.html#AxisRange">AxisRange</a></span>
+|
+
 <span class="param-type">number</span>
 
 
@@ -1269,8 +1276,8 @@ function.
                 </td>
             
 
-            <td class="description last">the min value. If <code>null</code>, undefined, or non-numeric, then
-<code>-1*Number.MAX_VALUE</code> is used instead.</td>
+            <td class="description last">an <a href="global.html#AxisRange">AxisRange</a> a double representing the minimum value. If <code>null</code>, undefined, non-numeric, or not an
+<code>AxisRange</code>, then <code>-1*Number.MAX_VALUE</code> is used instead.</td>
         </tr>
 
     
@@ -1306,7 +1313,8 @@ function.
             
 
             <td class="description last">the max value. If <code>null</code>, undefined, or non-numeric, then
-<code>Number.MAX_VALUE</code> is used instead.</td>
+<code>Number.MAX_VALUE</code> is used instead.  This argument is ignored (but required) if the first argument
+is an <a href="global.html#AxisRange">AxisRange</a>.</td>
         </tr>
 
     
@@ -1386,7 +1394,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line394">line 394</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line418">line 418</a>
     </li></ul></dd>
     
 
@@ -1434,7 +1442,7 @@ function.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Thu Apr 02 2015 13:47:17 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Fri Apr 03 2015 16:54:04 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

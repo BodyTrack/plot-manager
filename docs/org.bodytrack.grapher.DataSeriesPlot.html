@@ -344,7 +344,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line487">line 487</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line512">line 512</a>
     </li></ul></dd>
     
 
@@ -494,7 +494,7 @@ function.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line582">line 582</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line630">line 630</a>
     </li></ul></dd>
     
 
@@ -658,7 +658,7 @@ point exists in the time window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line627">line 627</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line675">line 675</a>
     </li></ul></dd>
     
 
@@ -761,7 +761,7 @@ point exists in the time window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line526">line 526</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line551">line 551</a>
     </li></ul></dd>
     
 
@@ -799,6 +799,205 @@ point exists in the time window.
 |
 
 <span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getStatisticsWithinRange"><span class="type-signature"></span>getStatisticsWithinRange<span class="signature">(rangeOrMinTimeSecs, maxTimeSecs<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="global.html#PlotStatistics">PlotStatistics</a>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Gets statistcs about the data within the specified time range.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rangeOrMinTimeSecs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#AxisRange">AxisRange</a></span>
+|
+
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">an <a href="global.html#AxisRange">AxisRange</a> or a double representing the time in Unix
+time seconds of the start of the visible time range. If <code>null</code>, undefined, non-numeric, or not an
+<code>AxisRange</code>, then <code>-1*Number.MAX_VALUE</code> is used instead.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxTimeSecs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">a double representing the time in Unix time seconds of the end of the visible
+time range. If <code>null</code>, undefined, or non-numeric, then <code>Number.MAX_VALUE</code> is used
+instead.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line575">line 575</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#PlotStatistics">PlotStatistics</a></span>
 
 
     </dd>
@@ -864,7 +1063,7 @@ point exists in the time window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line604">line 604</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line652">line 652</a>
     </li></ul></dd>
     
 
@@ -968,7 +1167,7 @@ point exists in the time window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line535">line 535</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line560">line 560</a>
     </li></ul></dd>
     
 
@@ -1117,7 +1316,7 @@ point exists in the time window.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line593">line 593</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line641">line 641</a>
     </li></ul></dd>
     
 
@@ -1251,7 +1450,7 @@ color (e.g. "rgb(255,0,0)" or "rgba(0,255,0,0.5)").
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line547">line 547</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line595">line 595</a>
     </li></ul></dd>
     
 
@@ -1382,7 +1581,7 @@ color (e.g. "rgb(255,0,0)" or "rgba(0,255,0,0.5)").
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line613">line 613</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line661">line 661</a>
     </li></ul></dd>
     
 
@@ -1430,7 +1629,7 @@ color (e.g. "rgb(255,0,0)" or "rgba(0,255,0,0.5)").
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Thu Apr 02 2015 13:47:17 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Fri Apr 03 2015 16:54:04 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
