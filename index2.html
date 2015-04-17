@@ -81,13 +81,50 @@
          $(".plot_width_selector").click(function() {
             plotManager.setWidth($(this).val());
          });
+
+         // configure height selection radio buttons to change the PlotManager's height
+         $(".plot_height_selector").click(function() {
+            plotManager.getPlotContainer().setHeight($(this).val());
+         });
       };
    </script>
 </head>
 <body>
 <p>
-   A resizeable plot. You can control the width of the plot with the radio buttons.
+   A resizeable plot. You can control the width and height of the plot with the radio buttons.
 </p>
+<div style="margin-bottom: 5px;">
+   <div style="display: inline-block; margin-right:10px;">
+      Width:<br>
+      <label>
+         <input type="radio" class="plot_width_selector" name="plot_width" value="200"/>200 pixels<br>
+      </label>
+      <label>
+         <input type="radio" class="plot_width_selector" name="plot_width" value="400" checked="checked"/>400 pixels<br>
+      </label>
+      <label>
+         <input type="radio" class="plot_width_selector" name="plot_width" value="600"/>600 pixels<br>
+      </label>
+      <label>
+         <input type="radio" class="plot_width_selector" name="plot_width" value="800"/>800 pixels
+      </label>
+   </div>
+   <div style="display: inline-block; margin-right:10px;">
+      Height:<br>
+      <label>
+         <input type="radio" class="plot_height_selector" name="plot_height" value="100"/>100 pixels<br>
+      </label>
+      <label>
+         <input type="radio" class="plot_height_selector" name="plot_height" value="200"/>200 pixels<br>
+      </label>
+      <label>
+         <input type="radio" class="plot_height_selector" name="plot_height" value="300" checked="checked"/>300 pixels<br>
+      </label>
+      <label>
+         <input type="radio" class="plot_height_selector" name="plot_height" value="400"/>400 pixels<br>
+      </label>
+   </div>
+</div>
 <div id="grapher_container" class="noselect">
    <table id="grapher" border="0" cellpadding="0" cellspacing="0">
       <tr>
@@ -98,28 +135,13 @@
       </tr>
       <tr>
          <td>
-            <div id="plot_container" class="plot_container" style="width:400px;height:300px;"></div>
+            <div id="plot_container" class="plot_container" style="width:400px; height:300px;"></div>
          </td>
          <td>
             <div id="y_axis" class="y_axis" style="height:300px"></div>
          </td>
       </tr>
    </table>
-</div>
-<div style="margin-top: 5px;">
-   Width:<br>
-   <label>
-      <input type="radio" class="plot_width_selector" name="plot_width" value="200"/>200 pixels<br>
-   </label>
-   <label>
-      <input type="radio" class="plot_width_selector" name="plot_width" value="400" checked="checked"/>400 pixels<br>
-   </label>
-   <label>
-      <input type="radio" class="plot_width_selector" name="plot_width" value="600"/>600 pixels<br>
-   </label>
-   <label>
-      <input type="radio" class="plot_width_selector" name="plot_width" value="800"/>800 pixels
-   </label>
 </div>
 </body>
 </html>
