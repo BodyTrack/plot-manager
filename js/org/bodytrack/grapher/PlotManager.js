@@ -454,6 +454,17 @@ if (!window['$']) {
          self.constrainRangeTo(null, null)
       };
 
+      /**
+       * Sets the height of the axis.
+       *
+       * @param {int} height - the new height
+       */
+      this.setHeight = function(height) {
+         var element = $("#" + elementId);
+         element.height(height);
+         wrappedAxis.setSize(element.width(), height, SequenceNumber.getNext());
+      };
+
       var padRange = function(range) {
          var paddedRange = {
             min : range.min,
@@ -886,6 +897,23 @@ if (!window['$']) {
          var element = $("#" + elementId);
          element.width(width);
          wrappedPlotContainer.setSize(width, element.height(), SequenceNumber.getNext());
+      };
+
+      /**
+       * Sets the height of the PlotContainer and all of its Y axes to the given height.
+       *
+       * @param {int} height - the new height
+       */
+      this.setHeight = function(height) {
+         var element = $("#" + elementId);
+         element.height(height);
+         wrappedPlotContainer.setSize(element.width(), height, SequenceNumber.getNext());
+
+         // update the height of the Y axes
+         Object.keys(yAxesAndPlotCount).forEach(function(yAxisElementId) {
+            var yAxis = yAxesAndPlotCount[yAxisElementId].yAxis;
+            yAxis.setHeight(height);
+         });
       };
 
       // the "constructor"
