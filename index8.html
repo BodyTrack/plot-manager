@@ -102,7 +102,7 @@
 
 
          // Default to adding the PM 2.5 channel
-         plotManager.addDataSeriesPlot("plot", createDatasource(3506, "PM2_5"), "plot_container", "y_axis", 0, 30);
+         plotManager.addDataSeriesPlot("plot", createDatasource(2401, "PM2_5"), "plot_container", "y_axis", 0, 30);
 
          var positionLabels = function() {
             // define a function for positioning a label next to its axis
@@ -143,7 +143,7 @@
                   plotManager.getPlotContainer('plot_container').removePlot('plot');
 
                   // add the new plot
-                  plotManager.addDataSeriesPlot("plot", createDatasource(3506, channelName), "plot_container", "y_axis", yMin, yMax);
+                  plotManager.addDataSeriesPlot("plot", createDatasource(2401, channelName), "plot_container", "y_axis", yMin, yMax);
 
                   // set the label text
                   $("#y_axis_label").text($(this).text());
