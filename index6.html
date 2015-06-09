@@ -125,7 +125,7 @@
          // NOTE: I use two different methods for adding a DataSeriesPlot here, only to illustrate the shorthand
          // functionality of getPlotContainer().  When called with no arguments, it simply returns the first
          // PlotContainer found.  In this case, it's identical to plotManager.getPlotContainer('plot_container')
-         plotManager.addDataSeriesPlot("plot1", createDatasource(3506, "PM2_5"), "plot_container", "y_axis", 0, 40, style);
+         plotManager.addDataSeriesPlot("plot1", createDatasource(2401, "PM2_5"), "plot_container", "y_axis", 0, 40, style);
          plotManager.getPlotContainer().addDataSeriesPlot("plot2", createDatasource(4231, "PM2_5"), "y_axis");
 
          var positionLabels = function() {
