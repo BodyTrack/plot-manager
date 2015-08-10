@@ -316,6 +316,7 @@ if (!window['$']) {
          var element = $("#" + elementId);
          element.width(width);
          wrappedAxis.setSize(width, element.height(), SequenceNumber.getNext());
+
       };
 
       /**
@@ -334,6 +335,7 @@ if (!window['$']) {
          // Tell the DateAxis instance the size of its container div
          var dateAxisElement = $("#" + elementId);
          wrappedAxis.setSize(dateAxisElement.width(), dateAxisElement.height(), SequenceNumber.getNext());
+
       })();
    };
 
@@ -463,6 +465,7 @@ if (!window['$']) {
          var element = $("#" + elementId);
          element.height(height);
          wrappedAxis.setSize(element.width(), height, SequenceNumber.getNext());
+
       };
 
       var padRange = function(range) {
@@ -783,9 +786,9 @@ if (!window['$']) {
             throw new Error("The plotId must be unique to the PlotContainer.")
          }
 
-         if (typeof datasource !== 'function') {
-            throw new Error("The datasource must be a function.")
-         }
+         //if (typeof datasource !== 'function') {
+        //    throw new Error("The datasource must be a function.")
+         //}
 
          if (!isNumberOrString(yAxisElementId)) {
             throw new Error("The yAxisElementId must be a number or a string.")
@@ -897,6 +900,7 @@ if (!window['$']) {
          var element = $("#" + elementId);
          element.width(width);
          wrappedPlotContainer.setSize(width, element.height(), SequenceNumber.getNext());
+
       };
 
       /**
@@ -919,7 +923,6 @@ if (!window['$']) {
       // the "constructor"
       (function() {
          wrappedPlotContainer = new PlotContainer(elementId, false, []);
-
          // set the width to be the same width as its DateAxis
          self.setWidth(dateAxis.getWidth());
       })();

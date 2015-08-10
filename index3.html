@@ -29,8 +29,9 @@
       }
    </style>
    <script src="lib/jquery/jquery-1.11.2.min.js" type="text/javascript"></script>
+   <script src="js/jquery.mousewheel.min.js"></script>
    <script src="lib/superagent/superagent.js" type="text/javascript"></script>
-   <script src="lib/bodytrack-grapher/org/bodytrack/grapher/grapher2.nocache.js" type="text/javascript"></script>
+   <script src="js/grapher.min.js"></script>
    <script src="js/org/bodytrack/grapher/PlotManager.js" type="text/javascript"></script>
    <script type="text/javascript">
       var ESDR_API_ROOT_URL = 'https://esdr.cmucreatelab.org/api/v1';
@@ -38,11 +39,13 @@
       var feedIdOrApiKey = 4231;
       var channelName = "PM2_5";
 
+      var plotManager;
       window.grapherLoad = function() {
          var maxTimeSecs = Date.now() / 1000;
          var minTimeSecs = maxTimeSecs - 7 * 24 * 60 * 60;
 
-         var plotManager = new org.bodytrack.grapher.PlotManager("date_axis", minTimeSecs, maxTimeSecs);
+         var datasource = ESDR_API_ROOT_URL + "/feeds/" + feedIdOrApiKey + "/channels/" + channelName + "/tiles";
+         plotManager = new org.bodytrack.grapher.PlotManager("date_axis", minTimeSecs, maxTimeSecs);
 
          plotManager.setWillAutoResizeWidth(true, function() {
             return $(window).width()         // window width
@@ -51,26 +54,6 @@
                    - 3;                      // grapher and Y axis borders
          });
 
-         var datasource = function(level, offset, successCallback) {
-            superagent
-                  .get(ESDR_API_ROOT_URL + "/feeds/" + feedIdOrApiKey + "/channels/" + channelName + "/tiles/" + level + "." + offset)
-                  .end(function(err, res) {
-                          if (err) {
-                             return console.log("Error: " + res.body);
-                          }
-
-                          switch (res.status) {
-                             case 200:
-                                return successCallback(JSON.stringify(res.body.data));
-                             case 401:
-                                return console.log("Unauthorized");
-                             case 403:
-                                return console.log("Forbidden");
-                             default:
-                                return console.log("Error: " + res.body);
-                          }
-                       });
-         };
 
          var minValue = 0;
          var maxValue = 20;

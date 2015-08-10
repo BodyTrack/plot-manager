@@ -57,34 +57,12 @@
 
    </style>
    <script src="lib/jquery/jquery-1.11.2.min.js" type="text/javascript"></script>
+   <script src="js/jquery.mousewheel.min.js"></script>
    <script src="lib/superagent/superagent.js" type="text/javascript"></script>
-   <script src="lib/bodytrack-grapher/org/bodytrack/grapher/grapher2.nocache.js" type="text/javascript"></script>
+   <script src="js/grapher.min.js"></script>
    <script src="js/org/bodytrack/grapher/PlotManager.js" type="text/javascript"></script>
    <script type="text/javascript">
       var ESDR_API_ROOT_URL = 'https://esdr.cmucreatelab.org/api/v1';
-
-      var createDatasource = function(feedIdOrApiKey, channelName) {
-         return function(level, offset, successCallback) {
-            superagent
-                  .get(ESDR_API_ROOT_URL + "/feeds/" + feedIdOrApiKey + "/channels/" + channelName + "/tiles/" + level + "." + offset)
-                  .end(function(err, res) {
-                          if (err) {
-                             return console.log("Error: " + res.body);
-                          }
-
-                          switch (res.status) {
-                             case 200:
-                                return successCallback(JSON.stringify(res.body.data));
-                             case 401:
-                                return console.log("Unauthorized");
-                             case 403:
-                                return console.log("Forbidden");
-                             default:
-                                return console.log("Error: " + res.body);
-                          }
-                       });
-         };
-      };
 
       window.grapherLoad = function() {
          var maxTimeSecs = Date.now() / 1000;
@@ -100,9 +78,13 @@
                    - 3;                            // grapher and Y axis borders
          });
 
+         var feedIdOrApiKey = 2401;
+         var channelName = "PM2_5";
+         var datasource = ESDR_API_ROOT_URL + "/feeds/" + feedIdOrApiKey + "/channels/" + channelName + "/tiles";
+
 
          // Default to adding the PM 2.5 channel
-         plotManager.addDataSeriesPlot("plot", createDatasource(2401, "PM2_5"), "plot_container", "y_axis", 0, 30);
+         plotManager.addDataSeriesPlot("plot", datasource, "plot_container", "y_axis", 0, 30);
 
          var positionLabels = function() {
             // define a function for positioning a label next to its axis
@@ -143,7 +125,8 @@
                   plotManager.getPlotContainer('plot_container').removePlot('plot');
 
                   // add the new plot
-                  plotManager.addDataSeriesPlot("plot", createDatasource(2401, channelName), "plot_container", "y_axis", yMin, yMax);
+                  var datasource = ESDR_API_ROOT_URL + "/feeds/" + feedIdOrApiKey + "/channels/" + channelName + "/tiles";
+                  plotManager.addDataSeriesPlot("plot", datasource, "plot_container", "y_axis", yMin, yMax);
 
                   // set the label text
                   $("#y_axis_label").text($(this).text());
