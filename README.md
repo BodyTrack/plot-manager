@@ -1,7 +1,7 @@
 Plot Manager
 ============
 
-A JavaScript wrapper library for the BodyTrack Grapher.
+A JavaScript wrapper library for the CREATE Lab Grapher and the BodyTrack Grapher.
 
 Examples
 ========

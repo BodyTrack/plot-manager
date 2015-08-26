@@ -3,7 +3,7 @@
 <head>
    <meta charset="utf-8">
    <title>Plot Manager</title>
-   <link href="css/main.css" rel="stylesheet" type="text/css"/>
+   <link href="../../css/main.css" rel="stylesheet" type="text/css"/>
    <style type="text/css">
       .date_axis {
          height: 42px;
@@ -28,10 +28,10 @@
          border-left-width: 0;
       }
    </style>
-   <script src="lib/jquery/jquery-1.11.2.min.js" type="text/javascript"></script>
-   <script src="lib/superagent/superagent.js" type="text/javascript"></script>
-   <script src="lib/bodytrack-grapher/org/bodytrack/grapher/grapher2.nocache.js" type="text/javascript"></script>
-   <script src="js/org/bodytrack/grapher/PlotManager.js" type="text/javascript"></script>
+   <script src="../../lib/jquery/jquery-1.11.2.min.js" type="text/javascript"></script>
+   <script src="../../lib/superagent/superagent.js" type="text/javascript"></script>
+   <script src="../../lib/bodytrack-grapher/org/bodytrack/grapher/grapher2.nocache.js" type="text/javascript"></script>
+   <script src="../../js/org/bodytrack/grapher/PlotManager.js" type="text/javascript"></script>
    <script type="text/javascript">
       var ESDR_API_ROOT_URL = 'https://esdr.cmucreatelab.org/api/v1';
 
@@ -39,7 +39,17 @@
       var channelName = "PM2_5";
 
       window.grapherLoad = function() {
-         var plotManager = new org.bodytrack.grapher.PlotManager("date_axis");
+         var maxTimeSecs = Date.now() / 1000;
+         var minTimeSecs = maxTimeSecs - 7 * 24 * 60 * 60;
+
+         var plotManager = new org.bodytrack.grapher.PlotManager("date_axis", minTimeSecs, maxTimeSecs);
+
+         plotManager.setWillAutoResizeWidth(true, function() {
+            return $(window).width()         // window width
+                   - $(".y_axis").width()    // Y axis width
+                   - 20                      // left and right margins
+                   - 3;                      // grapher and Y axis borders
+         });
 
          var datasource = function(level, offset, successCallback) {
             superagent
@@ -62,13 +72,22 @@
                        });
          };
 
-         plotManager.addDataSeriesPlot("my_plot", datasource, "plot_container", "y_axis");
+         var minValue = 0;
+         var maxValue = 20;
+
+         plotManager.addDataSeriesPlot("my_plot", datasource, "plot_container", "y_axis", minValue, maxValue);
+
+         // configure checkbox
+         $("#will_auto_resize").click(function() {
+            plotManager.setWillAutoResizeWidth($("#will_auto_resize").prop("checked"));
+         });
       };
    </script>
 </head>
 <body>
 <p>
-   A minimal, non-resizeable plot.
+   An auto-resizing plot which also specifies initial visible ranges for the date axis and the Y axis. You can control
+   whether auto-resizing is enabled by toggling the checkbox.
 </p>
 <div id="grapher_container" class="noselect">
    <table id="grapher" border="0" cellpadding="0" cellspacing="0">
@@ -88,5 +107,6 @@
       </tr>
    </table>
 </div>
+<input type="checkbox" id="will_auto_resize" value="true" checked="checked"><label for="will_auto_resize">Auto-resize</label>
 </body>
 </html>

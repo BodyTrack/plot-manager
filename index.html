@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <title>Plot Manager</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+   <link href="css/main.css" rel="stylesheet" type="text/css"/>
+   <style type="text/css">
+      body {
+         font-size: 12pt;
+      }
+
+      .examples_and_source {
+         font-size: 10pt;
+      }
+
+      dd {
+         margin-bottom: 10px;
+         margin-left: 10px;
+      }
+   </style>
+</head>
+<body>
+<h1>Plot Manager</h1>
+<p>
+   A JavaScript wrapper library for the CREATE Lab Grapher and the BodyTrack Grapher.
+</p>
+<h2>Examples</h2>
+<dl>
+   <dt>Example 1</dt>
+   <dd>
+      A minimal, non-resizeable plot.
+      <div class="examples_and_source">
+         <a href="examples/createlab-grapher/index1.html" target="cl_example">CREATE Lab Grapher</a> |
+         <a href="examples/bodytrack-grapher/index1.html" target="bt_example">BodyTrack Grapher</a>
+      </div>
+   </dd>
+   <dt>Example 2</dt>
+   <dd>
+      A resizeable plot. You can control the width and height of the plot with the radio buttons.
+      <div class="examples_and_source">
+         <a href="examples/createlab-grapher/index2.html" target="cl_example">CREATE Lab Grapher</a> |
+         <a href="examples/bodytrack-grapher/index2.html" target="bt_example">BodyTrack Grapher</a>
+      </div>
+   </dd>
+   <dt>Example 3</dt>
+   <dd>
+      An auto-resizing plot which also specifies initial visible ranges for the date axis and the Y axis. You can
+      control whether auto-resizing is enabled by toggling the checkbox.
+      <div class="examples_and_source">
+         <a href="examples/createlab-grapher/index3.html" target="cl_example">CREATE Lab Grapher</a> |
+         <a href="examples/bodytrack-grapher/index3.html" target="bt_example">BodyTrack Grapher</a>
+      </div>
+   </dd>
+   <dt>Example 4</dt>
+   <dd>
+      An auto-resizing plot which also constrains the ranges for the date axis and the Y axis. You can control
+      whether the ranges are constrained by toggling the checkboxes.
+      <div class="examples_and_source">
+         <a href="examples/createlab-grapher/index4.html" target="cl_example">CREATE Lab Grapher</a> |
+         <a href="examples/bodytrack-grapher/index4.html" target="bt_example">BodyTrack Grapher</a>
+      </div>
+   </dd>
+   <dt>Example 5</dt>
+   <dd>
+      Two auto-resizing plots in separate plot containers, with Y axis labels.
+      <div class="examples_and_source">
+         <a href="examples/createlab-grapher/index5.html" target="cl_example">CREATE Lab Grapher</a> |
+         <a href="examples/bodytrack-grapher/index5.html" target="bt_example">BodyTrack Grapher</a>
+      </div>
+   </dd>
+   <dt>Example 6</dt>
+   <dd>
+      Two auto-resizing plots in the same plot container, sharing a Y axis. One plot plot has a custom style.
+      <div class="examples_and_source">
+         <a href="examples/createlab-grapher/index6.html" target="cl_example">CREATE Lab Grapher</a> |
+         <a href="examples/bodytrack-grapher/index6.html" target="bt_example">BodyTrack Grapher</a>
+      </div>
+   </dd>
+   <dt>Example 7</dt>
+   <dd>
+      Two auto-resizing plots in the same plot container, each with its own Y axis. One plot has a custom style.
+      <div class="examples_and_source">
+         <a href="examples/createlab-grapher/index7.html" target="cl_example">CREATE Lab Grapher</a> |
+         <a href="examples/bodytrack-grapher/index7.html" target="bt_example">BodyTrack Grapher</a>
+      </div>
+   </dd>
+   <dt>Example 8</dt>
+   <dd>
+      Example of how to change the plot in a plot container. Click the channel name links below the plot to change which channel is displayed.
+      <div class="examples_and_source">
+         <a href="examples/createlab-grapher/index8.html" target="cl_example">CREATE Lab Grapher</a> |
+         <a href="examples/bodytrack-grapher/index8.html" target="bt_example">BodyTrack Grapher</a>
+      </div>
+   </dd>
+   <dt>Example 9</dt>
+   <dd>
+      An auto-resizing plot which has a data point listener attached. Hover over the plot data points to see the value and
+      timestamp appear below the plot. You can toggle whether the listener is attached by toggling the checkbox.
+      <div class="examples_and_source">
+         <a href="examples/createlab-grapher/index9.html" target="cl_example">CREATE Lab Grapher</a> |
+         <a href="examples/bodytrack-grapher/index9.html" target="bt_example">BodyTrack Grapher</a>
+      </div>
+   </dd>
+   <dt>Example 10</dt>
+   <dd>
+      An auto-resizing plot which has two listeners attached. Hover over the plot data points to see the value and
+      timestamp appear below the plot. Drag the red triangle cursor to see the value and timestamp of the most recent
+      data point with respect to the cursor. You can toggle whether the cursor listener is attached by toggling the checkbox.
+      <div class="examples_and_source">
+         <a href="examples/createlab-grapher/index10.html" target="cl_example">CREATE Lab Grapher</a> |
+         <a href="examples/bodytrack-grapher/index10.html" target="bt_example">BodyTrack Grapher</a>
+      </div>
+   </dd>
+   <dt>Example 11</dt>
+   <dd>
+      An auto-resizing plot which allows you to change plot styles. Try out different styles using the radio buttons. If
+      a style supports highlighting, mouseover data points to see the highlight style.
+      <div class="examples_and_source">
+         CREATE Lab Grapher |
+         <a href="examples/bodytrack-grapher/index11.html" target="bt_example">BodyTrack Grapher</a>
+      </div>
+   </dd>
+</dl>
+<h2>API</h2>
+Please see the <a href="docs/org.bodytrack.grapher.PlotManager.html" target="api">API</a> for more details.
+</body>
+</html>

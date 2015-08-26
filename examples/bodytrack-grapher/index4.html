@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <title>Plot Manager</title>
+   <link href="../../css/main.css" rel="stylesheet" type="text/css"/>
+   <style type="text/css">
+      .date_axis {
+         height: 42px;
+         z-index: 2;
+         border: 1px solid black;
+         border-bottom-width: 0;
+      }
+
+      .plot_container {
+         position: relative;
+         border: 1px solid black;
+      }
+
+      .plot_container > canvas:focus {
+         outline: none;
+      }
+
+      .y_axis {
+         position: relative;
+         width: 42px;
+         border: 1px solid black;
+         border-left-width: 0;
+      }
+   </style>
+   <script src="../../lib/jquery/jquery-1.11.2.min.js" type="text/javascript"></script>
+   <script src="../../lib/superagent/superagent.js" type="text/javascript"></script>
+   <script src="../../lib/bodytrack-grapher/org/bodytrack/grapher/grapher2.nocache.js" type="text/javascript"></script>
+   <script src="../../js/org/bodytrack/grapher/PlotManager.js" type="text/javascript"></script>
+   <script type="text/javascript">
+      var ESDR_API_ROOT_URL = 'https://esdr.cmucreatelab.org/api/v1';
+
+      var feedIdOrApiKey = 4231;
+      var channelName = "PM2_5";
+
+      window.grapherLoad = function() {
+         var maxTimeSecs = Date.now() / 1000;
+         var minTimeSecs = maxTimeSecs - 7 * 24 * 60 * 60;
+
+         var plotManager = new org.bodytrack.grapher.PlotManager("date_axis", minTimeSecs, maxTimeSecs);
+
+         plotManager.setWillAutoResizeWidth(true, function() {
+            return $(window).width()         // window width
+                   - $(".y_axis").width()    // Y axis width
+                   - 20                      // left and right margins
+                   - 3;                      // grapher and Y axis borders
+         });
+
+         var datasource = function(level, offset, successCallback) {
+            superagent
+                  .get(ESDR_API_ROOT_URL + "/feeds/" + feedIdOrApiKey + "/channels/" + channelName + "/tiles/" + level + "." + offset)
+                  .end(function(err, res) {
+                          if (err) {
+                             return console.log("Error: " + res.body);
+                          }
+
+                          switch (res.status) {
+                             case 200:
+                                return successCallback(JSON.stringify(res.body.data));
+                             case 401:
+                                return console.log("Unauthorized");
+                             case 403:
+                                return console.log("Forbidden");
+                             default:
+                                return console.log("Error: " + res.body);
+                          }
+                       });
+         };
+
+         var minValue = 0;
+         var maxValue = 20;
+
+         plotManager.addDataSeriesPlot("my_plot", datasource, "plot_container", "y_axis", minValue, maxValue);
+
+         // configure checkboxes (and call click() on them to enable constraints)
+         $("#is_date_axis_range_constrained").click(function() {
+            if ($("#is_date_axis_range_constrained").prop("checked")) {
+               // NOTE: the axis constrainRangeTo() and setRange() methods can be called with one argument or two. See
+               // the API docs for details.  Here, I demonstrate calling it with one AxisRange argument.
+               plotManager.getDateAxis().constrainRangeTo({ min : minTimeSecs, max : maxTimeSecs });
+            }
+            else {
+               plotManager.getDateAxis().clearRangeConstraints();
+            }
+         }).click();
+
+         $("#is_y_axis_range_constrained").click(function() {
+            // NOTE: In the if branch, I call getYAxis() with no arguments, but in the else branch, I call getYAxis()
+            // giving it the DOM element ID of the Y axis.  This is merely to illustrate the shorthand functionality
+            // of getYAxis(), where it returns the first Y axis found if no DOM element ID is specified.  This is handy
+            // for usages of the PlotManager where you only have a single plot or at least a single Y axis.
+            // For this example, where there is a single PlotContainer containing a single plot, all of the following
+            // are equivalent ways to get a reference to the Y axis:
+            //
+            //    plotManager.getYAxis()
+            //    plotManager.getYAxis('y_axis')
+            //    plotManager.getPlotContainer().getYAxis()
+            //    plotManager.getPlotContainer().getYAxis('y_axis')
+            //    plotManager.getPlotContainer("plot_container").getYAxis()
+            //    plotManager.getPlotContainer("plot_container").getYAxis('y_axis')
+            //
+            if ($("#is_y_axis_range_constrained").prop("checked")) {
+               plotManager.getYAxis().constrainRangeTo(minValue, maxValue);
+            }
+            else {
+               plotManager.getYAxis("y_axis").clearRangeConstraints();
+            }
+         }).click();
+      };
+   </script>
+</head>
+<body>
+<p>
+   An auto-resizing plot which also constrains the ranges for the date axis and the Y axis. You can control
+   whether the ranges are constrained by toggling the checkboxes.
+</p>
+<div id="grapher_container" class="noselect">
+   <table id="grapher" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+         <td>
+            <div id="date_axis" class="date_axis" style="width:400px;"></div>
+         </td>
+         <td></td>
+      </tr>
+      <tr>
+         <td>
+            <div id="plot_container" class="plot_container" style="width:400px;height:300px;"></div>
+         </td>
+         <td>
+            <div id="y_axis" class="y_axis" style="height:300px"></div>
+         </td>
+      </tr>
+   </table>
+</div>
+<input type="checkbox" id="is_date_axis_range_constrained" value="true"><label for="is_date_axis_range_constrained">Constrain date axis range to the past 7 days</label><br>
+<input type="checkbox" id="is_y_axis_range_constrained" value="true"><label for="is_y_axis_range_constrained">Constrain Y axis range to [0, 20]</label>
+</body>
+</html>
