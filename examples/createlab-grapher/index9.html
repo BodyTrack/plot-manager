@@ -3,7 +3,7 @@
 <head>
    <meta charset="utf-8">
    <title>Plot Manager</title>
-   <link href="css/main.css" rel="stylesheet" type="text/css"/>
+   <link href="../../css/main.css" rel="stylesheet" type="text/css"/>
    <style type="text/css">
       .date_axis {
          height: 42px;
@@ -28,10 +28,11 @@
          border-left-width: 0;
       }
    </style>
-   <script src="lib/jquery/jquery-1.11.2.min.js" type="text/javascript"></script>
-   <script src="lib/superagent/superagent.js" type="text/javascript"></script>
-   <script src="lib/bodytrack-grapher/org/bodytrack/grapher/grapher2.nocache.js" type="text/javascript"></script>
-   <script src="js/org/bodytrack/grapher/PlotManager.js" type="text/javascript"></script>
+   <script src="../../lib/jquery/jquery-1.11.2.min.js" type="text/javascript"></script>
+   <script src="../../lib/jquery-mousewheel/jquery.mousewheel.min.js"></script>
+   <script src="../../lib/superagent/superagent.js" type="text/javascript"></script>
+   <script src="../../lib/createlab-grapher/grapher.min.js"></script>
+   <script src="../../js/org/bodytrack/grapher/PlotManager.js" type="text/javascript"></script>
    <script type="text/javascript">
       var ESDR_API_ROOT_URL = 'https://esdr.cmucreatelab.org/api/v1';
 
@@ -51,26 +52,9 @@
                    - 3;                      // grapher and Y axis borders
          });
 
-         var datasource = function(level, offset, successCallback) {
-            superagent
-                  .get(ESDR_API_ROOT_URL + "/feeds/" + feedIdOrApiKey + "/channels/" + channelName + "/tiles/" + level + "." + offset)
-                  .end(function(err, res) {
-                          if (err) {
-                             return console.log("Error: " + res.body);
-                          }
-
-                          switch (res.status) {
-                             case 200:
-                                return successCallback(JSON.stringify(res.body.data));
-                             case 401:
-                                return console.log("Unauthorized");
-                             case 403:
-                                return console.log("Forbidden");
-                             default:
-                                return console.log("Error: " + res.body);
-                          }
-                       });
-         };
+         var feedIdOrApiKey = 4231;
+         var channelName = "PM2_5";
+         var datasource = ESDR_API_ROOT_URL + "/feeds/" + feedIdOrApiKey + "/channels/" + channelName + "/tiles";
 
          var minValue = 0;
          var maxValue = 20;
