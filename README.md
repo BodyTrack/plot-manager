@@ -1,7 +1,7 @@
 Plot Manager
 ============
 
-A JavaScript wrapper library for the CREATE Lab Grapher and the BodyTrack Grapher.
+A JavaScript wrapper library for the [CREATE Lab Grapher](https://github.com/CMU-CREATE-Lab/grapher) and the [BodyTrack Grapher](https://github.com/BodyTrack/Grapher).
 
 Examples
 ========
