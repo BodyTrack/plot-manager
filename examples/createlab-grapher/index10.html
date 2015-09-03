@@ -83,7 +83,7 @@
 
                           switch (res.status) {
                              case 200:
-                                return successCallback(JSON.stringify(res.body.data));
+                                return successCallback(res.body.data);
                              case 401:
                                 return console.log("Unauthorized");
                              case 403:
@@ -94,7 +94,6 @@
                        });
          };
 
-         var datasource = ESDR_API_ROOT_URL + "/feeds/" + feedIdOrApiKey + "/channels/" + channelName + "/tiles";
          var minValue = 0;
          var maxValue = 20;
 
@@ -170,7 +169,7 @@
             element.html(dataPoint.valueString + " &mu;g/m<sup>3</sup> at " + dataPoint.dateString).show();
          }
          else {
-            element.html("&nbsp;");
+            element.html("");
          }
       }
    </script>

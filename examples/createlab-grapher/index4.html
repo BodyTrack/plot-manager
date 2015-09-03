@@ -39,13 +39,11 @@
       var feedIdOrApiKey = 4231;
       var channelName = "PM2_5";
 
-      var plotManager;
-
       window.grapherLoad = function() {
          var maxTimeSecs = Date.now() / 1000;
          var minTimeSecs = maxTimeSecs - 7 * 24 * 60 * 60;
 
-         plotManager = new org.bodytrack.grapher.PlotManager("date_axis", minTimeSecs, maxTimeSecs);
+         var plotManager = new org.bodytrack.grapher.PlotManager("date_axis", minTimeSecs, maxTimeSecs);
 
          plotManager.setWillAutoResizeWidth(true, function() {
             return $(window).width()         // window width
@@ -54,7 +52,26 @@
                    - 3;                      // grapher and Y axis borders
          });
 
-         var datasource = ESDR_API_ROOT_URL + "/feeds/" + feedIdOrApiKey + "/channels/" + channelName + "/tiles";
+         var datasource = function(level, offset, successCallback) {
+            superagent
+                  .get(ESDR_API_ROOT_URL + "/feeds/" + feedIdOrApiKey + "/channels/" + channelName + "/tiles/" + level + "." + offset)
+                  .end(function(err, res) {
+                          if (err) {
+                             return console.log("Error: " + res.body);
+                          }
+
+                          switch (res.status) {
+                             case 200:
+                                return successCallback(res.body.data);
+                             case 401:
+                                return console.log("Unauthorized");
+                             case 403:
+                                return console.log("Forbidden");
+                             default:
+                                return console.log("Error: " + res.body);
+                          }
+                       });
+         };
 
          var minValue = 0;
          var maxValue = 20;

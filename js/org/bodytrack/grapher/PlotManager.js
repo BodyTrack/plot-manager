@@ -514,7 +514,7 @@ if (!window['$']) {
     * @class
     * @constructor
     * @param {string|number} plotId - A identifier for this plot, unique within the PlotContainer.  Must be a number or a string.
-    * @param {datasourceFunction|string} datasource - function with signature <code>function(level, offset, successCallback)</code> resposible for returning tile JSON for the given <code>level</code> and <code>offset</code>. Alternatively, the datasource URL as a string.
+    * @param {datasourceFunction} datasource - function with signature <code>function(level, offset, successCallback)</code> resposible for returning tile JSON for the given <code>level</code> and <code>offset</code>
     * @param {org.bodytrack.grapher.DateAxis} dateAxis - the date axis
     * @param {org.bodytrack.grapher.YAxis} yAxis - the Y axis
     * @param {Object} [style] - the style object. A default style is used if undefined, null, or not an object.
@@ -766,7 +766,7 @@ if (!window['$']) {
        * given <code>yAxisElementId</code> (the Y axis may be shared with other plots, if you wish).
        *
        * @param {string|number} plotId - A identifier for this plot, unique within the PlotContainer.  Must be a number or a string.
-       * @param {datasourceFunction|string} datasource - function with signature <code>function(level, offset, successCallback)</code> resposible for returning tile JSON for the given <code>level</code> and <code>offset</code>. Alternatively, the datasource URL as a string.
+       * @param {datasourceFunction} datasource - function with signature <code>function(level, offset, successCallback)</code> resposible for returning tile JSON for the given <code>level</code> and <code>offset</code>
        * @param {string} yAxisElementId - the DOM element ID for the container div holding this plot's Y axis
        * @param {number} [minValue=0] - the minimum initial value for the Y axis (if the Y axis is created for this plot). Defaults to 0 if undefined, <code>null</code>, or non-numeric.
        * @param {number} [maxValue=100] - the maximum initial value for the Y axis (if the Y axis is created for this plot). Defaults to 100 if undefined, <code>null</code>, or non-numeric.
@@ -783,8 +783,8 @@ if (!window['$']) {
             throw new Error("The plotId must be unique to the PlotContainer.")
          }
 
-         if (typeof datasource !== 'function' && !isString(datasource)) {
-            throw new Error("The datasource must either be a function or a string.");
+         if (typeof datasource !== 'function') {
+            throw new Error("The datasource must be a function.");
          }
 
          if (!isNumberOrString(yAxisElementId)) {
@@ -1071,7 +1071,7 @@ if (!window['$']) {
        * <code>plotManager.addPlotContainer('plot_container').addDataSeriesPlot(...)</code>.
        *
        * @param {string|number} plotId - A identifier for this plot, unique within the {@link org.bodytrack.grapher.PlotContainer PlotContainer}.  Must be a number or a string.
-       * @param {datasourceFunction|string} datasource - function with signature <code>function(level, offset, successCallback)</code> resposible for returning tile JSON for the given <code>level</code> and <code>offset</code>. Alternatively, the datasource URL as a string.
+       * @param {datasourceFunction} datasource - function with signature <code>function(level, offset, successCallback)</code> resposible for returning tile JSON for the given <code>level</code> and <code>offset</code>
        * @param {string} plotContainerElementId - the DOM element ID for the container div into which this plot should be added
        * @param {string} yAxisElementId - the DOM element ID for the container div holding this plot's Y axis
        * @param {number} [minValue=0] - the minimum initial value for the Y axis (if the Y axis is created for this plot). Defaults to 0 if undefined, <code>null</code>, or non-numeric.
