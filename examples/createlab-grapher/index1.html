@@ -40,11 +40,29 @@
       var feedIdOrApiKey = 4231;
       var channelName = "PM2_5";
 
-      var plotManager;
       window.grapherLoad = function() {
-         plotManager = new org.bodytrack.grapher.PlotManager("date_axis");
-         var datasource = ESDR_API_ROOT_URL + "/feeds/" + feedIdOrApiKey + "/channels/" + channelName + "/tiles";
-         plotManager.addDataSeriesPlot("my-plot", datasource, "plot_container", "y_axis");
+         var plotManager = new org.bodytrack.grapher.PlotManager("date_axis");
+         var datasource = function(level, offset, successCallback) {
+            superagent
+                  .get(ESDR_API_ROOT_URL + "/feeds/" + feedIdOrApiKey + "/channels/" + channelName + "/tiles/" + level + "." + offset)
+                  .end(function(err, res) {
+                          if (err) {
+                             return console.log("Error: " + res.body);
+                          }
+
+                          switch (res.status) {
+                             case 200:
+                                return successCallback(res.body.data);
+                             case 401:
+                                return console.log("Unauthorized");
+                             case 403:
+                                return console.log("Forbidden");
+                             default:
+                                return console.log("Error: " + res.body);
+                          }
+                       });
+         };
+         plotManager.addDataSeriesPlot("my_plot", datasource, "plot_container", "y_axis");
       };
    </script>
 </head>

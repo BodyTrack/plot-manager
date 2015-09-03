@@ -49,13 +49,11 @@
    <script type="text/javascript">
       var ESDR_API_ROOT_URL = 'https://esdr.cmucreatelab.org/api/v1';
 
-      var plotManager;
-
       window.grapherLoad = function() {
          var maxTimeSecs = Date.now() / 1000;
          var minTimeSecs = maxTimeSecs - 7 * 24 * 60 * 60;
 
-         plotManager = new org.bodytrack.grapher.PlotManager("date_axis", minTimeSecs, maxTimeSecs);
+         var plotManager = new org.bodytrack.grapher.PlotManager("date_axis", minTimeSecs, maxTimeSecs);
 
          plotManager.setWillAutoResizeWidth(true, function() {
             return $(window).width()                                                      // window width
@@ -65,15 +63,31 @@
                    - 3;                                                                   // grapher and Y axis borders
          });
 
-         var feedIdOrApiKey = 2401;
-         var channelName1 = "PM2_5";
-         var channelName2 = "OZONE";
+         var createDatasource = function(feedIdOrApiKey, channelName) {
+            return function(level, offset, successCallback) {
+               superagent
+                     .get(ESDR_API_ROOT_URL + "/feeds/" + feedIdOrApiKey + "/channels/" + channelName + "/tiles/" + level + "." + offset)
+                     .end(function(err, res) {
+                             if (err) {
+                                return console.log("Error: " + res.body);
+                             }
 
-         var datasource1 = ESDR_API_ROOT_URL + "/feeds/" + feedIdOrApiKey + "/channels/" + channelName1 + "/tiles";
-         var datasource2 = ESDR_API_ROOT_URL + "/feeds/" + feedIdOrApiKey + "/channels/" + channelName2 + "/tiles";
+                             switch (res.status) {
+                                case 200:
+                                   return successCallback(res.body.data);
+                                case 401:
+                                   return console.log("Unauthorized");
+                                case 403:
+                                   return console.log("Forbidden");
+                                default:
+                                   return console.log("Error: " + res.body);
+                             }
+                          });
+            };
+         };
 
-         plotManager.addDataSeriesPlot("plot1", datasource1, "plot_container1", "y_axis1", 0, 20);
-         plotManager.addDataSeriesPlot("plot2", datasource2, "plot_container2", "y_axis2", 0, 50);
+         plotManager.addDataSeriesPlot("plot1", createDatasource(2401, "PM2_5"), "plot_container1", "y_axis1", 0, 20);
+         plotManager.addDataSeriesPlot("plot2", createDatasource(2401, "OZONE"), "plot_container2", "y_axis2", 0, 50);
 
          var positionLabels = function() {
             // define a function for positioning a label next to its axis
