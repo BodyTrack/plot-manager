@@ -110,6 +110,24 @@ if (!window['$']) {
    };
 
    /**
+    * The function which the datasource function will call upon success, giving it the tile JSON.  Some implementations
+    * can handle either an object or a string, some require one or the other.
+    *
+    * @callback datasourceSuccessCallbackFunction
+    * @param {object|string} json - the tile JSON, as either an object or a string
+    */
+
+   /**
+    * Datasource function with signature &lt;code>function(level, offset, successCallback)&lt;/code> resposible for
+    * returning tile JSON for the given &lt;code>level&lt;/code> and &lt;code>offset&lt;/code>.
+    *
+    * @callback datasourceFunction
+    * @param {number} level - the tile's level
+    * @param {number} offset - the tile's offset
+    * @param {datasourceSuccessCallbackFunction} successCallback - success callback function which expects to be given the tile JSON
+    */
+
+   /**
     * The min and max values for an axis's range.
     *
     * @typedef {Object} AxisRange
@@ -132,7 +150,7 @@ if (!window['$']) {
     * &lt;code>null&lt;/code>.
     *
     * @callback axisChangeListenerFunction
-    * @param {AxisChangeEvent|null} axisChangeEvent - the &lt;code>{@link AxisChangeEvent}&lt;/code>
+    * @param {AxisChangeEvent|null} axisChangeEvent - the &lt;code>{@link AxisChangeEvent}&lt;/code>, may be &lt;code>null&lt;/code>
     */
 
    /**
@@ -542,7 +560,7 @@ if (!window['$']) {
     * @class
     * @constructor
     * @param {string|number} plotId - A identifier for this plot, unique within the PlotContainer.  Must be a number or a string.
-    * @param {datasourceFunction|string} datasource - function with signature &lt;code>function(level, offset, successCallback)&lt;/code> resposible for returning tile JSON for the given &lt;code>level&lt;/code> and &lt;code>offset&lt;/code>. Alternatively, the datasource URL as a string.
+    * @param {datasourceFunction} datasource - function with signature &lt;code>function(level, offset, successCallback)&lt;/code> resposible for returning tile JSON for the given &lt;code>level&lt;/code> and &lt;code>offset&lt;/code>
     * @param {org.bodytrack.grapher.DateAxis} dateAxis - the date axis
     * @param {org.bodytrack.grapher.YAxis} yAxis - the Y axis
     * @param {Object} [style] - the style object. A default style is used if undefined, null, or not an object.
@@ -794,7 +812,7 @@ if (!window['$']) {
        * given &lt;code>yAxisElementId&lt;/code> (the Y axis may be shared with other plots, if you wish).
        *
        * @param {string|number} plotId - A identifier for this plot, unique within the PlotContainer.  Must be a number or a string.
-       * @param {datasourceFunction|string} datasource - function with signature &lt;code>function(level, offset, successCallback)&lt;/code> resposible for returning tile JSON for the given &lt;code>level&lt;/code> and &lt;code>offset&lt;/code>. Alternatively, the datasource URL as a string.
+       * @param {datasourceFunction} datasource - function with signature &lt;code>function(level, offset, successCallback)&lt;/code> resposible for returning tile JSON for the given &lt;code>level&lt;/code> and &lt;code>offset&lt;/code>
        * @param {string} yAxisElementId - the DOM element ID for the container div holding this plot's Y axis
        * @param {number} [minValue=0] - the minimum initial value for the Y axis (if the Y axis is created for this plot). Defaults to 0 if undefined, &lt;code>null&lt;/code>, or non-numeric.
        * @param {number} [maxValue=100] - the maximum initial value for the Y axis (if the Y axis is created for this plot). Defaults to 100 if undefined, &lt;code>null&lt;/code>, or non-numeric.
@@ -811,8 +829,8 @@ if (!window['$']) {
             throw new Error("The plotId must be unique to the PlotContainer.")
          }
 
-         if (typeof datasource !== 'function' &amp;&amp; !isString(datasource)) {
-            throw new Error("The datasource must either be a function or a string.");
+         if (typeof datasource !== 'function') {
+            throw new Error("The datasource must be a function.");
          }
 
          if (!isNumberOrString(yAxisElementId)) {
@@ -1085,21 +1103,11 @@ if (!window['$']) {
       };
 
       /**
-       * Datasource function with signature &lt;code>function(level, offset, successCallback)&lt;/code> resposible for
-       * returning tile JSON for the given &lt;code>level&lt;/code> and &lt;code>offset&lt;/code>.
-       *
-       * @callback datasourceFunction
-       * @param {number} level - the tile's level
-       * @param {number} offset - the tile's offset
-       * @param {function} successCallback - success callback function which expects to be given a stringified JSON of the tile
-       */
-
-      /**
        * Helper method for adding a plot, shorthand for
        * &lt;code>plotManager.addPlotContainer('plot_container').addDataSeriesPlot(...)&lt;/code>.
        *
        * @param {string|number} plotId - A identifier for this plot, unique within the {@link org.bodytrack.grapher.PlotContainer PlotContainer}.  Must be a number or a string.
-       * @param {datasourceFunction|string} datasource - function with signature &lt;code>function(level, offset, successCallback)&lt;/code> resposible for returning tile JSON for the given &lt;code>level&lt;/code> and &lt;code>offset&lt;/code>. Alternatively, the datasource URL as a string.
+       * @param {datasourceFunction} datasource - function with signature &lt;code>function(level, offset, successCallback)&lt;/code> resposible for returning tile JSON for the given &lt;code>level&lt;/code> and &lt;code>offset&lt;/code>
        * @param {string} plotContainerElementId - the DOM element ID for the container div into which this plot should be added
        * @param {string} yAxisElementId - the DOM element ID for the container div holding this plot's Y axis
        * @param {number} [minValue=0] - the minimum initial value for the Y axis (if the Y axis is created for this plot). Defaults to 0 if undefined, &lt;code>null&lt;/code>, or non-numeric.
@@ -1238,7 +1246,7 @@ if (!window['$']) {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Fri Aug 28 2015 10:54:57 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Fri Sep 04 2015 09:34:01 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
