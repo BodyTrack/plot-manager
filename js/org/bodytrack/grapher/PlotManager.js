@@ -417,10 +417,14 @@ if (!window['$']) {
        * @returns {AxisRange}
        */
       this.getRange = function() {
-         return {
-            min : wrappedAxis.getMin(),
-            max : wrappedAxis.getMax()
-         };
+         if (typeof wrappedAxis.getRange === 'function') {
+            return wrappedAxis.getRange();
+         } else {
+            return {
+               min : wrappedAxis.getMin(),
+               max : wrappedAxis.getMax()
+            };
+         }
       };
 
       /**
