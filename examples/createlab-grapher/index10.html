@@ -60,11 +60,13 @@
       var hoverSampleValueAndTimeElement = null;
       var cursorSampleValueAndTimeElement = null;
 
+      var plotManager;
+
       window.grapherLoad = function() {
          var maxTimeSecs = Date.now() / 1000;
          var minTimeSecs = maxTimeSecs - 7 * 24 * 60 * 60;
 
-         var plotManager = new org.bodytrack.grapher.PlotManager("date_axis", minTimeSecs, maxTimeSecs);
+         plotManager = new org.bodytrack.grapher.PlotManager("date_axis", minTimeSecs, maxTimeSecs);
 
          plotManager.setWillAutoResizeWidth(true, function() {
             return $(window).width()         // window width

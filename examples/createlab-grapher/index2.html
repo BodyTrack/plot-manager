@@ -40,11 +40,13 @@
       var feedIdOrApiKey = 4231;
       var channelName = "PM2_5";
 
+      var plotManager;
+
       window.grapherLoad = function() {
          var maxTimeSecs = Date.now() / 1000;
          var minTimeSecs = maxTimeSecs - 7 * 24 * 60 * 60;
 
-         var plotManager = new org.bodytrack.grapher.PlotManager("date_axis", minTimeSecs, maxTimeSecs);
+         plotManager = new org.bodytrack.grapher.PlotManager("date_axis", minTimeSecs, maxTimeSecs);
 
          plotManager.setWidthCalculator(function() {
             return $(window).width()         // window width
