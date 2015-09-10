@@ -938,6 +938,21 @@ if (!window['$']) {
          });
       };
 
+      /**
+       * Sets whether autoscaling and autoscale padding are enabled, if supported by the underlying grapher; otherwise does nothing.
+       *
+       * @param {boolean} isEnabled - whether autoscale is enabled.
+       * @param {boolean} [isPaddingEnabled] - whether padding of the autoscaled Y axis is enabled; ignored if
+       * <code>isEnabled</code> is <code>false</code>. Defaults to <code>false</code> if <code>undefined</code> or <code>null</code>.
+       */
+      this.setAutoScaleEnabled = function(isEnabled, isPaddingEnabled) {
+         if (typeof wrappedPlotContainer.setAutoScaleEnabled === 'function') {
+            wrappedPlotContainer.setAutoScaleEnabled(!!isEnabled, !!isPaddingEnabled);
+         } else {
+            console.log("WARN: the underlying grapher does not support autoscaling.");
+         }
+      };
+
       // the "constructor"
       (function() {
          wrappedPlotContainer = new PlotContainer(elementId, false, []);
