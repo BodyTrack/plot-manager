@@ -38,8 +38,10 @@
       var feedIdOrApiKey = 4231;
       var channelName = "PM2_5";
 
+      var plotManager;
+
       window.grapherLoad = function() {
-         var plotManager = new org.bodytrack.grapher.PlotManager("date_axis");
+         plotManager = new org.bodytrack.grapher.PlotManager("date_axis");
 
          var datasource = function(level, offset, successCallback) {
             superagent
