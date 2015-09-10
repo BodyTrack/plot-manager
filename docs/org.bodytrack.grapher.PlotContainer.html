@@ -167,7 +167,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line732">line 732</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line736">line 736</a>
     </li></ul></dd>
     
 
@@ -560,7 +560,7 @@ given <code>yAxisElementId</code> (the Y axis may be shared with other plots, if
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line794">line 794</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line798">line 798</a>
     </li></ul></dd>
     
 
@@ -642,7 +642,7 @@ given <code>yAxisElementId</code> (the Y axis may be shared with other plots, if
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line744">line 744</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line748">line 748</a>
     </li></ul></dd>
     
 
@@ -808,7 +808,7 @@ this method returns the first plot found, or <code>null</code> if none have been
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line773">line 773</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line777">line 777</a>
     </li></ul></dd>
     
 
@@ -971,7 +971,7 @@ this method returns the first Y axis found, or <code>null</code> if none have be
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line756">line 756</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line760">line 760</a>
     </li></ul></dd>
     
 
@@ -1071,7 +1071,7 @@ this method returns the first Y axis found, or <code>null</code> if none have be
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line888">line 888</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line892">line 892</a>
     </li></ul></dd>
     
 
@@ -1205,7 +1205,182 @@ this method returns the first Y axis found, or <code>null</code> if none have be
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line862">line 862</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line866">line 866</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setAutoScaleEnabled"><span class="type-signature"></span>setAutoScaleEnabled<span class="signature">(isEnabled, isPaddingEnabled<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Sets whether autoscaling and autoscale padding are enabled, if supported by the underlying grapher; otherwise does nothing.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>isEnabled</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">whether autoscale is enabled.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isPaddingEnabled</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">whether padding of the autoscaled Y axis is enabled; ignored if
+<code>isEnabled</code> is <code>false</code>. Defaults to <code>false</code> if <code>undefined</code> or <code>null</code>.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line948">line 948</a>
     </li></ul></dd>
     
 
@@ -1339,7 +1514,7 @@ descriptor can be any valid CSS color descriptor such as a word ("green", "blue"
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line902">line 902</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line906">line 906</a>
     </li></ul></dd>
     
 
@@ -1470,7 +1645,7 @@ descriptor can be any valid CSS color descriptor such as a word ("green", "blue"
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line925">line 925</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line929">line 929</a>
     </li></ul></dd>
     
 
@@ -1601,7 +1776,7 @@ descriptor can be any valid CSS color descriptor such as a word ("green", "blue"
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line914">line 914</a>
+        <a href="PlotManager.js.html">PlotManager.js</a>, <a href="PlotManager.js.html#line918">line 918</a>
     </li></ul></dd>
     
 
@@ -1649,7 +1824,7 @@ descriptor can be any valid CSS color descriptor such as a word ("green", "blue"
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Fri Sep 04 2015 09:34:01 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Wed Sep 09 2015 23:10:18 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
