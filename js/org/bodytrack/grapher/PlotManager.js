@@ -3,7 +3,9 @@
 //
 // Dependencies:
 // * jQuery (http://jquery.com/)
-// * The Bodytrack Grapher
+// * One of the following:
+//   * The CREATE Lab Grapher (https://github.com/CMU-CREATE-Lab/grapher)
+//   * The Bodytrack Grapher (https://github.com/BodyTrack/Grapher)
 //
 // Author: Chris Bartley (bartley@cmu.edu)
 //======================================================================================================================
