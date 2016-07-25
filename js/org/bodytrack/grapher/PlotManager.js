@@ -1090,6 +1090,25 @@ if (!window['$']) {
       };
 
       /**
+       * Removes the plotContainer with the given <code>plotContainerId</code> from this PlotManager.
+       *
+       * @param {string|number} plotContainerId - A identifier for the plotContainer to remove, unique within the PlotManager.  Must be a number or a string.
+       */
+      this.removePlotContainer = function(plotContainerElementId) {
+        plotContainers[plotContainerElementId].removeAllPlots();
+        delete plotContainers[plotContainerElementId];
+      };
+
+      /**
+       * Removes all PlotContainers from PlotManger.
+       */
+      this.removeAllPlotContainers = function() {
+        Object.keys(plotContainers).forEach(function(plotContainerElementId) {
+          self.removePlotContainer(plotContainerElementId);
+        });
+      };
+
+      /**
        * Function used by a {@link org.bodytrack.grapher.PlotContainer PlotContainer} iterator, used for performing an operation on a given PlotContainer.
        *
        * @callback plotContainerIteratorFunction
