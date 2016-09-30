@@ -328,6 +328,28 @@ if (!window['$']) {
       };
 
       /**
+       * Constrains the range of the axis so that the user cannot pan/zoom deeper than the specified range.
+       *
+       * @param {AxisRange|number|null} rangeOrMinTimeSecs - an {@link AxisRange} a double representing the minimum time
+       * in Unix time seconds of the time range. If <code>null</code>, undefined, non-numeric, or not an
+       * <code>AxisRange</code>, then <code>-1*Number.MAX_VALUE</code> is used instead.
+       * @param {number|null} [maxTimeSecs] - a double representing the maximum time in Unix time seconds of the time
+       * range. If <code>null</code>, undefined, or non-numeric, then <code>Number.MAX_VALUE</code> is used instead.
+       */
+      this.constrainMinRangeTo = function(rangeOrMinTimeSecs, maxTimeSecs) {
+         var validRange = validateAxisRange(rangeOrMinTimeSecs, maxTimeSecs);
+         wrappedAxis.setMinRangeConstraints(validRange.min, validRange.max);
+      };
+
+      /**
+       * Clears the min range constraints by setting bounds to [<code>-1 * Number.MAX_VALUE</code>,
+       * <code>Number.MAX_VALUE</code>].
+       */
+      this.clearMinRangeConstraints = function() {
+         self.constrainMinRangeTo(null, null);
+      };
+
+      /**
        * Sets the width of the axis.
        *
        * @param {int} width - the new width
@@ -476,6 +498,36 @@ if (!window['$']) {
        */
       this.clearRangeConstraints = function() {
          self.constrainRangeTo(null, null)
+      };
+
+      /**
+       * Constrains the range of the axis so that the user cannot pan/zoom deeper than the specified range.
+       *
+       * @param {AxisRange|number|null} rangeOrMin - an {@link AxisRange} a double representing the minimum value. If
+       * <code>null</code>, undefined, non-numeric, or not an <code>AxisRange</code>, then
+       * <code>-1*Number.MAX_VALUE</code> is used instead.
+       * @param {number|null} max - the max value. If <code>null</code>, undefined, or non-numeric, then
+       * <code>Number.MAX_VALUE</code> is used instead.  This argument is ignored (but required) if the first argument
+       * is an {@link AxisRange}.
+       * @param {boolean} [willNotPad=false] - whether to pad the range
+       */
+      this.constrainMinRangeTo = function(rangeOrMin, max, willNotPad) {
+         var range = validateAxisRange(rangeOrMin, max);
+
+         // pad, if desired
+         if (!willNotPad) {
+            range = padRange(range);
+         }
+
+         wrappedAxis.setMinRangeConstraints(range.min, range.max);
+      };
+
+      /**
+       * Clears the range constraints by setting bounds to [<code>-1 * Number.MAX_VALUE</code>,
+       * <code>Number.MAX_VALUE</code>].
+       */
+      this.clearMinRangeConstraints = function() {
+         self.constrainMinRangeTo(null, null);
       };
 
       /**
