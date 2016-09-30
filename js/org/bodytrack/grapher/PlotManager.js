@@ -550,7 +550,7 @@ if (!window['$']) {
       var DEFAULT_STYLE = {
          "styles" : [
             { "type" : "line", "lineWidth" : 1, "show" : true, "color" : "black" },
-            { "type" : "circle", "radius" : 1, "lineWidth" : 1, "show" : true, "color" : "black", "fill" : true }
+            { "type" : "circle", "radius" : 2, "lineWidth" : 1, "show" : true, "color" : "black", "fill" : true }
          ],
          "highlight" : {
             "lineWidth" : 1,
