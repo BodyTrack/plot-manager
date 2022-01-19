@@ -4,7 +4,7 @@
   <component name="DependencyValidationManager">
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
-  <component name="Encoding" addBOMForNewFiles="with NO BOM">
+  <component name="Encoding">
     <file url="PROJECT" charset="x-MacRoman" />
   </component>
   <component name="InspectionProjectProfileManager">
@@ -39,14 +39,11 @@
     <version value="1.0" />
   </component>
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{plot-manager/node_modules}" />
     <file url="PROJECT" libraries="{BodyTrack Grapher, Superagent, jQuery 1.11.2}" />
   </component>
   <component name="ProjectCodeStyleConfiguration">
     <option name="USE_PER_PROJECT_SETTINGS" value="true" />
     <code_scheme name="Project" version="173">
-      <option name="USE_SAME_INDENTS" value="true" />
-      <option name="IGNORE_SAME_INDENTS_FOR_LANGUAGES" value="true" />
       <option name="OTHER_INDENT_OPTIONS">
         <value>
           <option name="INDENT_SIZE" value="3" />
@@ -102,7 +99,6 @@
         <option name="XML_ATTRIBUTE_WRAP" value="0" />
         <option name="XML_TEXT_WRAP" value="0" />
         <option name="XML_KEEP_BLANK_LINES" value="1" />
-        <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
       </XML>
       <ADDITIONAL_INDENT_OPTIONS fileType="haml">
         <option name="INDENT_SIZE" value="2" />
@@ -176,7 +172,6 @@
         <option name="IF_BRACE_FORCE" value="3" />
         <option name="WHILE_BRACE_FORCE" value="3" />
         <option name="FOR_BRACE_FORCE" value="3" />
-        <option name="PARENT_SETTINGS_INSTALLED" value="true" />
       </codeStyleSettings>
       <codeStyleSettings language="HOCON">
         <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="0" />
@@ -707,6 +702,7 @@
       </option>
       <option name="outputFromStdout" value="false" />
       <option name="program" value="$ProjectFileDir$/node_modules/.bin/jsdoc" />
+      <option name="runOnExternalChanges" value="true" />
       <option name="scopeName" value="Project Files" />
       <option name="trackOnlyRoot" value="true" />
       <option name="workingDir" value="$ProjectFileDir$" />
@@ -719,13 +715,25 @@
   <component name="libraryTable">
     <library name="BodyTrack Grapher" type="javaScript">
       <CLASSES>
+        <root url="file://$PROJECT_DIR$/lib/bodytrack-grapher/org/bodytrack/grapher/22E6F1462C3B741B857354E10A427402.cache.js" />
+        <root url="file://$PROJECT_DIR$/lib/bodytrack-grapher/org/bodytrack/grapher/272080ACED4381DC2C25AF4ED1AD1D68.cache.js" />
         <root url="file://$PROJECT_DIR$/lib/bodytrack-grapher/org/bodytrack/grapher/472482C621105874AD80E0623EE4ACE2.cache.js" />
         <root url="file://$PROJECT_DIR$/lib/bodytrack-grapher/org/bodytrack/grapher/63C62F39AA48D0271CBEDE88A213ABE3.cache.js" />
         <root url="file://$PROJECT_DIR$/lib/bodytrack-grapher/org/bodytrack/grapher/6F9DFA26EA71FE349CC02042A5596C07.cache.js" />
-        <root url="file://$PROJECT_DIR$/lib/bodytrack-grapher/org/bodytrack/grapher/22E6F1462C3B741B857354E10A427402.cache.js" />
-        <root url="file://$PROJECT_DIR$/lib/bodytrack-grapher/org/bodytrack/grapher/272080ACED4381DC2C25AF4ED1AD1D68.cache.js" />
         <root url="file://$PROJECT_DIR$/lib/bodytrack-grapher/org/bodytrack/grapher/grapher2.devmode.js" />
         <root url="file://$PROJECT_DIR$/lib/bodytrack-grapher/org/bodytrack/grapher/grapher2.nocache.js" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+    <library name="Superagent" type="javaScript">
+      <properties>
+        <sourceFilesUrls>
+          <item url="file://$PROJECT_DIR$/lib/superagent/superagent.js" />
+        </sourceFilesUrls>
+      </properties>
+      <CLASSES>
+        <root url="file://$PROJECT_DIR$/lib/superagent/superagent.js" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -739,18 +747,6 @@
       <CLASSES>
         <root url="file://$PROJECT_DIR$/lib/jquery/jquery-1.11.2.js" />
         <root url="file://$PROJECT_DIR$/lib/jquery/jquery-1.11.2.min.js" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
-    <library name="Superagent" type="javaScript">
-      <properties>
-        <sourceFilesUrls>
-          <item url="file://$PROJECT_DIR$/lib/superagent/superagent.js" />
-        </sourceFilesUrls>
-      </properties>
-      <CLASSES>
-        <root url="file://$PROJECT_DIR$/lib/superagent/superagent.js" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
