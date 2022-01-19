@@ -1,0 +1,28 @@
+{
+  "name": "plot-manager",
+  "version": "1.3.6",
+  "description": "A JavaScript wrapper library for the CREATE Lab Grapher and the BodyTrack Grapher.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "examples",
+    "lib": "lib"
+  },
+  "dependencies": {
+    "jsdoc": "^3.6.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BodyTrack/plot-manager.git"
+  },
+  "author": "Chris Bartley <bartley@cmu.edu>",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/BodyTrack/plot-manager/issues"
+  },
+  "homepage": "https://github.com/BodyTrack/plot-manager#readme"
+}
